@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日大赛 - 赛事日历与赛程追踪</title>
+<meta name="description" content="每日大赛汇集电竞赛事、创意挑战、知识问答与体育竞技的每日赛程，提供今日对阵、往期赛果、参赛门槛与观赛入口，适合按日期追踪比赛进程的观众与参赛者。">
+<meta name="keywords" content="电竞赛程,创意挑战赛,知识问答赛,今日对决赛果,参赛报名门槛">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317263f'/%3E%3Cpath d='M32 10l6 14 15 2-11 10 3 15-13-7-13 7 3-15-11-10 15-2z' fill='%23ffb703'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#17263f;
+  --ink-2:#2b3f63;
+  --paper:#f5f3ee;
+  --panel:#ffffff;
+  --line:#dcd8cf;
+  --line-strong:#b9b3a6;
+  --accent:#e05a2b;
+  --accent-2:#ffb703;
+  --teal:#156b6b;
+  --muted:#66708a;
+  --shadow:0 2px 0 rgba(23,38,63,.06),0 8px 24px -18px rgba(23,38,63,.5);
+  --radius:14px;
+  --radius-sm:8px;
+  --maxw:1340px;
+  --gap:22px;
+  --sticky-h:104px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--sticky-h)}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--teal);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{margin:0;line-height:1.3;font-weight:800;letter-spacing:-.01em}
+p{margin:0 0 .8em}
+ul,ol{margin:0 0 .8em;padding-left:1.2em}
+li{margin-bottom:.35em}
+button{font:inherit}
+
+/* ---------- 吸顶公告条 + 页头 ---------- */
+.sticky-wrap{position:sticky;top:0;z-index:60;box-shadow:0 1px 0 var(--line-strong),0 10px 24px -22px rgba(23,38,63,.8)}
+.notice-bar{
+  background:var(--ink);
+  color:#f3efe6;
+  font-size:13.5px;
+  line-height:1.5;
+  padding:8px 0;
+}
+.notice-inner{
+  max-width:var(--maxw);margin:0 auto;padding:0 20px;
+  display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+}
+.notice-tag{
+  background:var(--accent-2);color:var(--ink);font-weight:800;
+  font-size:12px;letter-spacing:.06em;padding:2px 8px;border-radius:4px;white-space:nowrap;
+}
+.notice-links{display:flex;gap:16px;flex-wrap:wrap}
+.notice-links a{color:#ffe6b3;font-weight:600}
+.site-header{background:linear-gradient(180deg,#ffffff,#fbf9f4);border-bottom:1px solid var(--line)}
+.header-inner{
+  max-width:var(--maxw);margin:0 auto;padding:12px 20px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}
+.brand-mark{width:44px;height:44px;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-name{font-size:20px;font-weight:900;letter-spacing:.02em;color:var(--ink)}
+.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:.14em;font-weight:600}
+.main-nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.main-nav a{
+  color:var(--ink-2);font-weight:600;font-size:14.5px;
+  padding:7px 11px;border-radius:999px;border:1px solid transparent;
+}
+.main-nav a:hover{background:#efece4;text-decoration:none}
+.main-nav a.is-key{border-color:var(--line-strong);background:#fff}
+.search-box{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line-strong);border-radius:999px;padding:4px 6px 4px 14px}
+.search-box input{
+  border:0;outline:none;background:transparent;font-size:14px;width:150px;color:var(--ink);padding:5px 0;
+}
+.search-box button{
+  border:0;border-radius:999px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:700;
+  padding:6px 14px;cursor:pointer;
+}
+.search-box button:hover{background:var(--accent)}
+.search-box button:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent-2);outline-offset:2px}
+.search-feedback{font-size:13px;color:var(--accent);font-weight:700;padding:0 20px 8px;max-width:var(--maxw);margin:0 auto;display:none}
+.search-feedback.show{display:block}
+
+/* ---------- 首屏 ---------- */
+.hero{background:radial-gradient(1200px 380px at 80% -10%,#27405f 0%,#17263f 55%,#101b2e 100%);color:#f4f1e9;padding:44px 0 50px;position:relative;overflow:hidden}
+.hero-inner{
+  max-width:var(--maxw);margin:0 auto;padding:0 20px;
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:38px;align-items:center;
+}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.16em;color:var(--accent-2);margin-bottom:14px}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--accent-2)}
+.hero h1{font-size:clamp(30px,4.4vw,50px);letter-spacing:.02em;line-height:1.14}
+.hero-lead{margin-top:16px;font-size:16.5px;line-height:1.85;color:#d5dbe6;max-width:44em}
+.hero-actions{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:11px 22px;
+  font-weight:800;font-size:15px;border:1px solid transparent;cursor:pointer;
+}
+.btn-primary{background:var(--accent-2);color:var(--ink)}
+.btn-primary:hover{background:#ffca3a;text-decoration:none}
+.btn-ghost{border-color:rgba(255,255,255,.4);color:#f4f1e9}
+.btn-ghost:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.hero-stats{margin-top:30px;display:flex;gap:26px;flex-wrap:wrap}
+.hero-stat{min-width:116px}
+.hero-stat b{display:block;font-size:24px;color:var(--accent-2);letter-spacing:.02em}
+.hero-stat span{font-size:12.5px;color:#aab6c9;letter-spacing:.06em}
+.hero-visual{position:relative;min-height:280px;display:flex;align-items:center;justify-content:center}
+.hero-visual svg{width:100%;max-width:420px;height:auto}
+
+/* ---------- 布局：三栏门户 ---------- */
+.layout{
+  max-width:var(--maxw);margin:0 auto;padding:30px 20px 10px;
+  display:grid;grid-template-columns:176px minmax(0,1fr) 250px;gap:var(--gap);align-items:start;
+}
+.channel-col{position:sticky;top:calc(var(--sticky-h) + 16px)}
+.channel-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 12px;box-shadow:var(--shadow)}
+.channel-title{font-size:12px;letter-spacing:.14em;font-weight:800;color:var(--muted);padding:0 6px 10px;border-bottom:1px dashed var(--line);margin-bottom:8px}
+.channel-list{list-style:none;padding:0;margin:0}
+.channel-list li{margin:0}
+.channel-list a{
+  display:flex;justify-content:space-between;gap:8px;align-items:center;
+  padding:8px 8px;border-radius:var(--radius-sm);color:var(--ink-2);font-weight:600;font-size:14px;
+}
+.channel-list a:hover{background:#f1eee6;text-decoration:none;color:var(--ink)}
+.channel-list .cnt{font-size:11.5px;color:var(--muted);font-weight:700}
+.channel-note{margin-top:12px;padding:10px;border-radius:var(--radius-sm);background:#fbf7ee;border:1px solid #ece2cc;font-size:12.5px;color:#7a6b4f;line-height:1.65}
+
+.main-col{min-width:0}
+.aside-col{min-width:0;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(var(--sticky-h) + 16px)}
+
+/* ---------- 通用板块 ---------- */
+.section{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px;margin-bottom:var(--gap);box-shadow:var(--shadow);scroll-margin-top:var(--sticky-h);
+}
+.section-head{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.section-head h2{font-size:22px;letter-spacing:.01em}
+.section-head .h2-en{font-size:11.5px;letter-spacing:.18em;color:var(--muted);font-weight:800;padding-bottom:4px}
+.section-sub{color:var(--muted);font-size:14px;margin:0 0 18px;max-width:60em}
+.rule{height:1px;background:var(--line);margin:16px 0 20px;border:0}
+.tag{
+  display:inline-block;font-size:12px;font-weight:700;line-height:1.5;
+  padding:2px 9px;border-radius:999px;background:#f0ede5;color:var(--ink-2);border:1px solid var(--line);
+  white-space:nowrap;
+}
+.tag-accent{background:#fdeee6;color:#b8421a;border-color:#f4d3c4}
+.tag-teal{background:#e6f2f0;color:#0f5a5a;border-color:#c4e0dc}
+.tag-gold{background:#fdf3d8;color:#8a6205;border-color:#f0dfa6}
+
+/* 概览 */
+.overview p{font-size:15.5px;color:#2e3a52;line-height:1.9}
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+.overview-item{border-left:3px solid var(--accent-2);background:#fbf9f3;padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.overview-item b{display:block;font-size:14.5px;margin-bottom:2px}
+.overview-item span{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* 精选卡片 */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;
+  display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 26px -18px rgba(23,38,63,.6)}
+.card-media{position:relative;aspect-ratio:4/3;background:#e8e4da}
+.card-media img{width:100%;height:100%;object-fit:cover}
+.card-badge{
+  position:absolute;top:9px;left:9px;background:rgba(23,38,63,.86);color:#ffe6b3;
+  font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:999px;letter-spacing:.04em;
+}
+.card-body{padding:13px 14px 15px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-title{font-size:16px;font-weight:800;line-height:1.4}
+.card-title a{color:var(--ink)}
+.card-title a:hover{color:var(--accent);text-decoration:none}
+.card-desc{font-size:13.5px;color:#4a5570;line-height:1.7;flex:1}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.card-meta{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px;font-weight:600}
+.card-meta .hot{color:var(--accent);font-weight:800}
+
+/* 最新更新列表 */
+.update-list{list-style:none;padding:0;margin:0}
+.update-list li{
+  display:grid;grid-template-columns:74px minmax(0,1fr) auto;gap:14px;align-items:baseline;
+  padding:12px 0;border-bottom:1px dashed var(--line);
+}
+.update-list li:last-child{border-bottom:0}
+.update-time{font-size:12.5px;font-weight:800;color:var(--teal);letter-spacing:.02em}
+.update-main b{font-size:15px;color:var(--ink)}
+.update-main span{display:block;font-size:13.5px;color:#4d5871;line-height:1.7}
+.update-type{font-size:12px}
+
+/* 分类入口 */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cat-item{
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;background:#fbf9f3;
+  display:flex;flex-direction:column;gap:3px;
+}
+.cat-item:hover{border-color:var(--accent);background:#fdf3ea;text-decoration:none}
+.cat-item b{font-size:15px;color:var(--ink)}
+.cat-item span{font-size:12.5px;color:var(--muted)}
+
+/* 深度解析 */
+.deep h3{font-size:17.5px;margin:22px 0 8px;color:var(--ink);padding-left:12px;border-left:4px solid var(--accent-2)}
+.deep h3:first-of-type{margin-top:8px}
+.deep p{font-size:15px;line-height:1.9;color:#2e3a52}
+.deep ul{padding-left:0;list-style:none}
+.deep ul li{position:relative;padding-left:20px;font-size:14.5px;color:#39465f;line-height:1.8}
+.deep ul li::before{content:"";position:absolute;left:4px;top:11px;width:7px;height:7px;background:var(--accent-2);border-radius:2px}
+.compare-table{width:100%;border-collapse:collapse;margin:14px 0 6px;font-size:14px}
+.compare-table th,.compare-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top;line-height:1.7}
+.compare-table th{background:#f4f1e8;font-weight:800;color:var(--ink);white-space:nowrap}
+.compare-table td{color:#39465f}
+
+/* 体验指南 步骤 */
+.steps{counter-reset:step;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.steps li{
+  counter-increment:step;position:relative;padding:14px 16px 14px 58px;
+  background:#fbf9f3;border:1px solid var(--line);border-radius:var(--radius-sm);
+}
+.steps li::before{
+  content:counter(step);position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:50%;
+  background:var(--ink);color:var(--accent-2);font-weight:900;font-size:15px;
+  display:flex;align-items:center;justify-content:center;
+}
+.steps b{display:block;font-size:15px;margin-bottom:2px}
+.steps span{font-size:13.8px;color:#4a5570;line-height:1.75}
+
+/* FAQ */
+.faq-item{border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;margin-bottom:10px;overflow:hidden}
+.faq-item summary{
+  cursor:pointer;list-style:none;padding:13px 44px 13px 16px;position:relative;
+  font-weight:800;font-size:15px;color:var(--ink);
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-size:20px;font-weight:700;color:var(--accent);line-height:1;
+}
+.faq-item[open] summary::after{content:"–"}
+.faq-item[open] summary{background:#fbf7ee;border-bottom:1px dashed var(--line)}
+.faq-body{padding:13px 16px 15px;font-size:14.2px;color:#3c4863;line-height:1.85}
+
+/* 评论 */
+.comment-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;list-style:none;padding:0;margin:0}
+.comment-item{background:#fbf9f3;border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px}
+.comment-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:5px}
+.comment-name{font-weight:800;font-size:13.8px;color:var(--ink)}
+.comment-time{font-size:11.5px;color:var(--muted);font-weight:600}
+.comment-text{font-size:13.5px;color:#44506a;line-height:1.75}
+.comment-target{display:inline-block;font-size:11.5px;color:var(--teal);font-weight:700;margin-top:5px}
+
+/* 资讯 */
+.news-list{list-style:none;padding:0;margin:0;display:grid;gap:14px}
+.news-item{display:grid;grid-template-columns:130px minmax(0,1fr);gap:14px;align-items:start;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+.news-item:last-child{border-bottom:0;padding-bottom:0}
+.news-item img{width:130px;height:88px;object-fit:cover;border-radius:var(--radius-sm)}
+.news-date{font-size:12px;font-weight:800;color:var(--accent);letter-spacing:.04em}
+.news-title{font-size:15.5px;font-weight:800;margin:2px 0 3px;line-height:1.45}
+.news-title a{color:var(--ink)}
+.news-title a:hover{color:var(--accent);text-decoration:none}
+.news-sum{font-size:13.5px;color:#4a5570;line-height:1.7}
+
+/* 相关推荐 标签索引 */
+.tag-index{display:flex;flex-wrap:wrap;gap:8px}
+.tag-index a{
+  display:inline-block;font-size:13.5px;font-weight:700;padding:6px 13px;border-radius:999px;
+  background:#fff;border:1px solid var(--line-strong);color:var(--ink-2);
+}
+.tag-index a:hover{background:var(--ink);color:#fff;border-color:var(--ink);text-decoration:none}
+
+/* 榜单 */
+.rank-list{list-style:none;padding:0;margin:0;counter-reset:rank}
+.rank-list li{
+  counter-increment:rank;display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:12px;align-items:center;
+  padding:10px 0;border-bottom:1px dashed var(--line);
+}
+.rank-list li:last-child{border-bottom:0}
+.rank-list li::before{
+  content:counter(rank);font-size:14px;font-weight:900;color:var(--muted);text-align:center;
+}
+.rank-list li:nth-child(-n+3)::before{color:var(--accent)}
+.rank-name{font-size:14.5px;font-weight:800;color:var(--ink)}
+.rank-name small{display:block;font-size:12.5px;color:var(--muted);font-weight:600}
+.rank-score{font-size:13px;font-weight:800;color:var(--teal);white-space:nowrap}
+
+/* 侧栏卡片 */
+.aside-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);scroll-margin-top:var(--sticky-h)}
+.aside-card h2,.aside-card h3{font-size:14.5px;font-weight:800;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:center}
+.aside-card h2 span,.aside-card h3 span{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:.08em}
+.mini-list{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.mini-list li{font-size:13.2px;line-height:1.6;color:#3f4b65;padding-left:16px;position:relative}
+.mini-list li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--accent-2)}
+.mini-list b{color:var(--ink)}
+.mini-list .mini-date{display:block;font-size:11.5px;color:var(--muted);font-weight:600}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:11.5px;text-align:center}
+.calendar-grid .dow{font-weight:800;color:var(--muted);padding:2px 0}
+.calendar-grid .day{padding:5px 0;border-radius:4px;background:#f6f4ee;color:#5a6party}
+.calendar-grid .day{color:#5a657d;font-weight:700}
+.calendar-grid .day.has{border:1px solid var(--accent);color:var(--accent);background:#fdf3ea}
+.calendar-grid .day.today{background:var(--ink);color:var(--accent-2)}
+.calendar-cap{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.6}
+
+/* 页尾 */
+.site-footer{background:var(--ink);color:#c8d1e0;margin-top:34px;padding:40px 0 26px}
+.footer-inner{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+.footer-top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:30px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.14)}
+.footer-brand{display:flex;gap:11px;align-items:center;margin-bottom:12px}
+.footer-brand .brand-name{color:#fff;font-size:19px}
+.footer-brand .brand-sub{color:#8d9bb2}
+.footer-desc{font-size:13.5px;line-height:1.85;color:#a7b3c7;max-width:34em}
+.footer-col h3{color:#fff;font-size:13px;letter-spacing:.14em;margin-bottom:12px;font-weight:800}
+.footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.footer-col a{color:#b6c1d4;font-size:13.5px}
+.footer-col a:hover{color:var(--accent-2)}
+.footer-bottom{padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px;color:#8d9bb2}
+.footer-bottom .example-note{color:#7d8aa0}
+
+/* 响应式 */
+@media (max-width:1024px){
+  .layout{grid-template-columns:minmax(0,1fr) 268px}
+  .channel-col{display:none}
+  .hero-inner{grid-template-columns:minmax(0,1fr);gap:26px}
+  .hero-visual{order:-1;min-height:0;max-width:340px;margin:0 auto}
+  .footer-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+@media (max-width:740px){
+  :root{--sticky-h:132px}
+  .notice-inner{font-size:12.5px;gap:8px}
+  .header-inner{padding:10px 14px;gap:10px}
+  .main-nav{order:3;margin-left:0;width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}
+  .main-nav a{white-space:nowrap;font-size:13.5px;padding:6px 10px}
+  .search-box{order:2;margin-left:auto}
+  .search-box input{width:96px}
+  .layout{grid-template-columns:minmax(0,1fr);padding:20px 14px 0}
+  .aside-col{position:static;order:2}
+  .section{padding:18px 15px}
+  .hero{padding:30px 0 34px}
+  .hero h1{font-size:clamp(26px,7.6vw,34px)}
+  .hero-lead{font-size:15px}
+  .hero-stats{gap:16px}
+  .update-list li{grid-template-columns:minmax(0,1fr);gap:3px}
+  .update-time{font-size:12px}
+  .update-type{justify-self:start}
+  .news-item{grid-template-columns:minmax(0,1fr)}
+  .news-item img{width:100%;height:150px}
+  .footer-top{grid-template-columns:minmax(0,1fr)}
+  .comment-list{grid-template-columns:minmax(0,1fr)}
+  .compare-table{font-size:13px}
+  .compare-table th,.compare-table td{padding:7px 9px}
+}
+@media (max-width:420px){
+  .search-box input{width:74px}
+  .hero-actions .btn{padding:9px 16px;font-size:14px}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-wrap">
+  <div class="notice-bar">
+    <div class="notice-inner">
+      <span class="notice-tag">今日赛程</span>
+      <span>11 月 8 日共 17 场进行中：星港杯八强战 19:30 开赛，创意改造赛第 4 轮提交截止 23:00。</span>
+      <div class="notice-links">
+        <a href="/#today-update">今日对阵</a>
+        <a href="/#deep-dive">赛制说明</a>
+        <a href="/#rank">积分榜</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="每日大赛标志">
+          <rect width="64" height="64" rx="14" fill="#17263f"/>
+          <path d="M32 9l6.4 14.6L54 25.4 43.2 35.6 46.4 51 32 43.3 17.6 51l3.2-15.4L10 25.4l15.6-1.8z" fill="#ffb703"/>
+          <circle cx="32" cy="31" r="6.5" fill="#17263f"/>
+          <path d="M32 27.2v7.6M28.2 31h7.6" stroke="#ffb703" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">每日大赛</span>
+          <span class="brand-sub">DAILY ARENA</span>
+        </div>
+      </div>
+
+      <nav class="main-nav" aria-label="主题导航">
+        <a href="/#overview">赛事概览</a>
+        <a href="/#featured" class="is-key">精选赛事</a>
+        <a href="/#today-update">今日对阵</a>
+        <a href="/#categories">赛别分类</a>
+        <a href="/#deep-dive">赛制解析</a>
+        <a href="/#guide">观赛指南</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#rank">积分榜</a>
+      </nav>
+
+      <form class="search-box" role="search" id="searchForm" onsubmit="return false;">
+        <label for="siteSearch" style="position:absolute;left:-9999px">查找赛事条目</label>
+        <input id="siteSearch" type="search" placeholder="搜索赛事、赛别、选手" autocomplete="off">
+        <button type="submit" id="searchBtn">查找</button>
+      </form>
+    </div>
+    <p class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></p>
+  </header>
+</div>
+
+<main>
+
+  <section class="hero" aria-label="主题首屏">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">按日追踪 · 赛事日历</span>
+        <h1>每日大赛</h1>
+        <p class="hero-lead">汇聚电竞对抗、创意改造、知识问答与体能竞技四类日常赛事：每一场都有开赛时间、赛制轮次、参赛门槛与积分结算方式，可按日期查看今日对阵、昨日赛果与本周待开赛项目。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/#today-update">查看今日 17 场对阵</a>
+          <a class="btn btn-ghost" href="/#deep-dive">读懂赛制与积分</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>17</b><span>今日进行中</span></div>
+          <div class="hero-stat"><b>4</b><span>赛别方向</span></div>
+          <div class="hero-stat"><b>11-08</b><span>当前赛期</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 420 320" role="presentation">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffb703" stop-opacity=".95"/>
+              <stop offset="1" stop-color="#e05a2b" stop-opacity=".9"/>
+            </linearGradient>
+          </defs>
+          <rect x="26" y="34" width="368" height="252" rx="18" fill="#1e3350" stroke="#3b567c" stroke-width="1.5"/>
+          <rect x="46" y="56" width="328" height="40" rx="10" fill="#12203a"/>
+          <circle cx="66" cy="76" r="6" fill="#ffb703"/>
+          <rect x="82" y="70" width="96" height="7" rx="3.5" fill="#3d5b83"/>
+          <rect x="82" y="82" width="58" height="5" rx="2.5" fill="#2c4364"/>
+          <rect x="46" y="110" width="150" height="70" rx="10" fill="#16283f" stroke="#2f4a6d"/>
+          <rect x="60" y="124" width="70" height="8" rx="4" fill="url(#g1)"/>
+          <rect x="60" y="140" width="110" height="6" rx="3" fill="#2f4a6d"/>
+          <rect x="60" y="152" width="86" height="6" rx="3" fill="#2f4a6d"/>
+          <rect x="224" y="110" width="150" height="70" rx="10" fill="#16283f" stroke="#2f4a6d"/>
+          <rect x="238" y="124" width="54" height="8" rx="4" fill="#38b6a5"/>
+          <rect x="238" y="140" width="110" height="6" rx="3" fill="#2f4a6d"/>
+          <rect x="238" y="152" width="72" height="6" rx="3" fill="#2f4a6d"/>
+          <rect x="46" y="194" width="328" height="72" rx="10" fill="#12203a" stroke="#2f4a6d"/>
+          <g fill="#3d5b83">
+            <rect x="62" y="212" width="18" height="36" rx="3"/>
+            <rect x="90" y="222" width="18" height="26" rx="3"/>
+            <rect x="118" y="204" width="18" height="44" rx="3"/>
+            <rect x="146" y="228" width="18" height="20" rx="3"/>
+            <rect x="174" y="214" width="18" height="34" rx="3"/>
+            <rect x="202" y="200" width="18" height="48" rx="3"/>
+            <rect x="230" y="220" width="18" height="28" rx="3"/>
+            <rect x="258" y="208" width="18" height="40" rx="3"/>
+          </g>
+          <rect x="292" y="204" width="66" height="44" rx="8" fill="url(#g1)"/>
+          <path d="M312 226h26M325 213v26" stroke="#17263f" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+
+    <!-- 左频道栏 -->
+    <div class="channel-col">
+      <nav class="channel-card" aria-label="赛别频道索引">
+        <div class="channel-title">赛别频道</div>
+        <ul class="channel-list">
+          <li><a href="/#categories">电竞对抗 <span class="cnt">5</span></a></li>
+          <li><a href="/#categories">创意改造 <span class="cnt">4</span></a></li>
+          <li><a href="/#categories">知识问答 <span class="cnt">3</span></a></li>
+          <li><a href="/#categories">体能竞技 <span class="cnt">3</span></a></li>
+          <li><a href="/#categories">团队接力 <span class="cnt">2</span></a></li>
+          <li><a href="/#categories">限时解谜 <span class="cnt">2</span></a></li>
+          <li><a href="/#categories">速通挑战 <span class="cnt">2</span></a></li>
+          <li><a href="/#categories">即兴创作 <span class="cnt">2</span></a></li>
+          <li><a href="/#today-update">今日对阵</a></li>
+          <li><a href="/#rank">积分榜</a></li>
+        </ul>
+        <div class="channel-note">赛程按自然日推进，轮次与结算时间以赛期表为准。积分在每轮结束后 2 小时内更新。</div>
+      </nav>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="main-col">
+
+      <!-- 1 概览 -->
+      <section class="section overview" id="overview">
+        <div class="section-head">
+          <h2>四类日常赛事的构成与看点</h2>
+          <span class="h2-en">OVERVIEW</span>
+        </div>
+        <p>日常赛事并不是单一类型的比赛，而是按赛别方向分成几条并行赛道。电竞对抗以回合制对战为主，单场 25—40 分钟，胜负由击杀数与目标点控制决定；创意改造给一个限定主题，选手在 6 小时内完成作品并提交方案，评委按完成度、创意与可落地性三项打分；知识问答采用抢答加必答的混合轮次，题库覆盖文史、科技与生活常识；体能竞技则包含负重跑、敏捷折返与耐力组合，按完成时间与犯规扣分结算。</p>
+        <p>四类赛事的共同点是每日开赛、当日或次日结算，差异在于准备周期与观赛节奏。回合制对抗适合看直播，创意改造适合看赛后作品拆解，知识问答适合碎片时间跟进，体能竞技则更适合关注整轮排名变化。理解这几条赛道的差别，比记住某一场的具体比分更能帮助判断接下来该看什么。</p>
+        <div class="overview-grid">
+          <div class="overview-item"><b>电竞对抗</b><span>回合制，单场 25—40 分钟，击杀与目标点双计分。</span></div>
+          <div class="overview-item"><b>创意改造</b><span>6 小时限时，三项评分，赛后公示作品拆解。</span></div>
+          <div class="overview-item"><b>知识问答</b><span>抢答 12 题 + 必答 8 题，错答倒扣分。</span></div>
+          <div class="overview-item"><b>体能竞技</b><span>三项组合，按完成时间与犯规扣分排名。</span></div>
+        </div>
+      </section>
+
+      <!-- 2 精选赛事 -->
+      <section class="section" id="featured">
+        <div class="section-head">
+          <h2>本周值得跟进的赛事条目</h2>
+          <span class="h2-en">FEATURED</span>
+        </div>
+        <p class="section-sub">按赛别挑出 9 场正在推进或即将结算的赛事，标注轮次、看点与当前进度。</p>
+        <div class="card-grid">
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/dianjing-xinggang08/400/300" alt="星港杯八强战比赛现场界面" width="400" height="300" loading="lazy">
+              <span class="card-badge">八强战</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">星港杯八强战</a></h3>
+              <p class="card-desc">回合制对抗赛的八进四阶段，采用三局两胜、每局 30 分钟上限。本轮焦点是两支擅长后期运营的队伍首次在淘汰赛相遇。</p>
+              <div class="tag-row"><span class="tag tag-teal">电竞对抗</span><span class="tag">三局两胜</span><span class="tag">淘汰赛</span></div>
+              <div class="card-meta"><span>11-08 19:30 开赛</span><span class="hot">热度 9.4</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/chuangyi-gaizao41/400/300" alt="创意改造赛第 4 轮作品工作台" width="400" height="300" loading="lazy">
+              <span class="card-badge">第 4 轮</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">创意改造赛·旧物新生主题</a></h3>
+              <p class="card-desc">本轮限定主题为“旧物新生”，选手需在 6 小时内把回收材料改造成可用物件，提交实物照片与 300 字方案说明。</p>
+              <div class="tag-row"><span class="tag tag-gold">创意改造</span><span class="tag">限时 6 小时</span><span class="tag">三项评分</span></div>
+              <div class="card-meta"><span>11-08 23:00 截止</span><span class="hot">热度 8.7</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/zhishi-wenda22/400/300" alt="知识问答擂台赛抢答环节" width="400" height="300" loading="lazy">
+              <span class="card-badge">守擂赛</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">知识问答擂台赛·文史专场</a></h3>
+              <p class="card-desc">20 题混合轮次，抢答 12 题、必答 8 题，错答倒扣 1 分。文史专场的题库偏向断代与人物关系，适合长线积累型选手。</p>
+              <div class="tag-row"><span class="tag">知识问答</span><span class="tag">倒扣分</span><span class="tag">文史题库</span></div>
+              <div class="card-meta"><span>11-07 已结束</span><span class="hot">热度 8.2</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/tineng-zhefan15/400/300" alt="体能竞技折返跑赛道" width="400" height="300" loading="lazy">
+              <span class="card-badge">第 3 站</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">体能竞技三项组合赛</a></h3>
+              <p class="card-desc">负重跑 800 米、敏捷折返 10 组、耐力组合 3 轮，按总用时加犯规扣分排名。第 3 站场地为室内馆，折返距离缩短至 15 米。</p>
+              <div class="tag-row"><span class="tag tag-teal">体能竞技</span><span class="tag">三项组合</span><span class="tag">犯规扣分</span></div>
+              <div class="card-meta"><span>11-09 09:00 开赛</span><span class="hot">热度 8.0</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/sutong-tiaozhan33/400/300" alt="速通挑战赛计时界面" width="400" height="300" loading="lazy">
+              <span class="card-badge">周赛</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">速通挑战赛·经典关卡重置</a></h3>
+              <p class="card-desc">限定三张经典关卡，允许使用一次存档点重置，最终以净计时排名。周赛前 8 名进入月度总决赛。</p>
+              <div class="tag-row"><span class="tag">速通挑战</span><span class="tag">净计时</span><span class="tag">晋级制</span></div>
+              <div class="card-meta"><span>11-06 已结算</span><span class="hot">热度 7.8</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/jixing-chuangzuo09/400/300" alt="即兴创作赛现场命题发布" width="400" height="300" loading="lazy">
+              <span class="card-badge">现场命题</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">即兴创作赛·90 分钟命题</a></h3>
+              <p class="card-desc">开赛时才公布命题，90 分钟内完成一件短篇作品并现场朗读。评委关注命题贴合度与结构完整度，容错空间比长周期赛事小。</p>
+              <div class="tag-row"><span class="tag tag-gold">即兴创作</span><span class="tag">90 分钟</span><span class="tag">现场评审</span></div>
+              <div class="card-meta"><span>11-08 20:00 开赛</span><span class="hot">热度 7.6</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/tuandui-jieli18/400/300" alt="团队接力赛交接区" width="400" height="300" loading="lazy">
+              <span class="card-badge">4 人制</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">团队接力赛·四段任务链</a></h3>
+              <p class="card-desc">四人一队，依次完成解谜、搭建、检索与冲刺四段任务，交接失误计 30 秒罚时。队伍需提前确定交接顺序。</p>
+              <div class="tag-row"><span class="tag">团队接力</span><span class="tag">罚时制</span><span class="tag">四段任务</span></div>
+              <div class="card-meta"><span>11-10 14:00 开赛</span><span class="hot">热度 7.4</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/xianshi-jiemi27/400/300" alt="限时解谜赛线索卡" width="400" height="300" loading="lazy">
+              <span class="card-badge">双人组</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">限时解谜赛·密室线索链</a></h3>
+              <p class="card-desc">双人组队，60 分钟内解开 5 层线索链。每层有独立倒计时，超时该层线索不再刷新，但可继续挑战下一层。</p>
+              <div class="tag-row"><span class="tag">限时解谜</span><span class="tag">60 分钟</span><span class="tag">分层倒计时</span></div>
+              <div class="card-meta"><span>11-05 已结算</span><span class="hot">热度 7.1</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-media">
+              <img src="https://picsum.photos/seed/dianjing-xinggang19/400/300" alt="星港杯败者组复活赛界面" width="400" height="300" loading="lazy">
+              <span class="card-badge">败者组</span>
+            </div>
+            <div class="card-body">
+              <h3 class="card-title"><a href="/#featured">星港杯败者组复活赛</a></h3>
+              <p class="card-desc">单败淘汰，胜者进入四强附加赛。复活赛采用一局定胜负，选图由赛前抽签决定，节奏比主赛更快。</p>
+              <div class="tag-row"><span class="tag tag-teal">电竞对抗</span><span class="tag">一局定胜负</span><span class="tag">抽签选图</span></div>
+              <div class="card-meta"><span>11-08 21:00 开赛</span><span class="hot">热度 8.9</span></div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- 3 今日对阵 / 最新更新 -->
+      <section class="section" id="today-update">
+        <div class="section-head">
+          <h2>今日对阵与结算进度</h2>
+          <span class="h2-en">TODAY</span>
+        </div>
+        <p class="section-sub">2026 年 11 月 8 日的开赛、截止与结算节点，按时间先后排列。</p>
+        <ul class="update-list">
+          <li>
+            <span class="update-time">09:00</span>
+            <span class="update-main"><b>体能竞技三项组合赛·第 3 站热身</b><span>参赛者完成场地适应与器材检查，正式计时从 09:30 开始。</span></span>
+            <span class="update-type"><span class="tag tag-teal">体能竞技</span></span>
+          </li>
+          <li>
+            <span class="update-time">10:20</span>
+            <span class="update-main"><b>知识问答擂台赛·科技专场开赛</b><span>抢答 12 题已出题完毕，当前擂主为上周文史专场亚军。</span></span>
+            <span class="update-type"><span class="tag">知识问答</span></span>
+          </li>
+          <li>
+            <span class="update-time">12:00</span>
+            <span class="update-main"><b>创意改造赛第 4 轮作品提交开放</b><span>“旧物新生”主题提交通道开启，选手需上传实物照片与方案说明。</span></span>
+            <span class="update-type"><span class="tag tag-gold">创意改造</span></span>
+          </li>
+          <li>
+            <span class="update-time">14:30</span>
+            <span class="update-main"><b>速通挑战赛周赛成绩复核完成</b><span>前 8 名名单确认，1 例存档点使用争议经回放核对后维持原判。</span></span>
+            <span class="update-type"><span class="tag">速通挑战</span></span>
+          </li>
+          <li>
+            <span class="update-time">16:00</span>
+            <span class="update-main"><b>限时解谜赛第 5 层线索刷新延迟公告</b><span>因题库同步延迟，第 5 层线索推迟 10 分钟发放，倒计时相应顺延。</span></span>
+            <span class="update-type"><span class="tag">限时解谜</span></span>
+          </li>
+          <li>
+            <span class="update-time">19:30</span>
+            <span class="update-main"><b>星港杯八强战第一场开赛</b><span>三局两胜，首局选图由积分较高一方指定，直播同步开启。</span></span>
+            <span class="update-type"><span class="tag tag-teal">电竞对抗</span></span>
+          </li>
+          <li>
+            <span class="update-time">20:00</span>
+            <span class="update-main"><b>即兴创作赛·90 分钟命题公布</b><span>命题现场发布，选手进入封闭写作区，结束后立即进入朗读评审。</span></span>
+            <span class="update-type"><span class="tag tag-gold">即兴创作</span></span>
+          </li>
+          <li>
+            <span class="update-time">21:00</span>
+            <span class="update-main"><b>星港杯败者组复活赛开赛</b><span>一局定胜负，抽签选图结果已在赛前 30 分钟公示。</span></span>
+            <span class="update-type"><span class="tag tag-teal">电竞对抗</span></span>
+          </li>
+          <li>
+            <span class="update-time">22:00</span>
+            <span class="update-main"><b>知识问答科技专场结算</b><span>本轮产生 3 位新擂主候选，积分明细已同步至积分榜。</span></span>
+            <span class="update-type"><span class="tag">知识问答</span></span>
+          </li>
+          <li>
+            <span class="update-time">23:00</span>
+            <span class="update-main"><b>创意改造赛第 4 轮提交截止</b><span>逾期提交按缺赛处理，评审将在 11 月 9 日 15:00 前完成打分。</span></span>
+            <span class="update-type"><span class="tag tag-gold">创意改造</span></span>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 4 分类入口 -->
+      <section class="section" id="categories">
+        <div class="section-head">
+          <h2>按赛别方向进入</h2>
+          <span class="h2-en">CATEGORIES</span>
+        </div>
+        <p class="section-sub">八个赛别方向，每个方向有独立的赛制、轮次安排与评分口径。</p>
+        <div class="cat-grid">
+          <a class="cat-item" href="/#featured"><b>电竞对抗</b><span>回合制淘汰，击杀与目标点双计分</span></a>
+          <a class="cat-item" href="/#featured"><b>创意改造</b><span>限时主题创作，三项评分</span></a>
+          <a class="cat-item" href="/#featured"><b>知识问答</b><span>抢答加必答，错答倒扣</span></a>
+          <a class="cat-item" href="/#featured"><b>体能竞技</b><span>三项组合，时间加犯规扣分</span></a>
+          <a class="cat-item" href="/#featured"><b>团队接力</b><span>四段任务链，交接罚时</span></a>
+          <a class="cat-item" href="/#featured"><b>限时解谜</b><span>分层倒计时，线索链递进</span></a>
+          <a class="cat-item" href="/#featured"><b>速通挑战</b><span>净计时排名，存档点受限</span></a>
+          <a class="cat-item" href="/#featured"><b>即兴创作</b><span>现场命题，90 分钟成稿</span></a>
+        </div>
+      </section>
+
+      <!-- 5 深度解析 -->
+      <section class="section deep" id="deep-dive">
+        <div class="section-head">
+          <h2>赛制差异、评分口径与投入判断</h2>
+          <span class="h2-en">DEEP DIVE</span>
+        </div>
+
+        <h3>四类赛事的节奏差异在哪里</h3>
+        <p>电竞对抗和知识问答属于“短周期高频反馈”型：一场比赛在 25—60 分钟内出结果，输赢即时可见，排名每天变动。创意改造与即兴创作则属于“长准备、集中评审”型，选手的准备时间远长于比赛本身，结果往往在赛后数小时甚至次日才公布。体能竞技介于两者之间，单站比赛半天内结束，但整轮排名要等全部站点跑完才稳定。</p>
+        <p>这个差异直接影响观赛体验。想看即时对抗和战术博弈，优先跟回合制对抗；想看作品拆解和评审逻辑，创意改造的赛后公示比直播更有信息量；知识问答适合碎片时间跟进，因为题库与错答记录本身就是可读内容。</p>
+
+        <h3>评分口径怎么读</h3>
+        <p>不同赛别的评分维度不通用，混着比较容易得出错误结论。下面这张对照表列出四类赛事的主要评分项与常见扣分点。</p>
+        <table class="compare-table">
+          <thead>
+            <tr><th>赛别</th><th>主要评分项</th><th>常见扣分</th><th>结算时限</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>电竞对抗</td><td>击杀数、目标点控制、回合胜场</td><td>超时未完成目标、违规暂停</td><td>当场结算</td></tr>
+            <tr><td>创意改造</td><td>完成度、创意、可落地性</td><td>超时提交、方案缺失</td><td>次日 15:00 前</td></tr>
+            <tr><td>知识问答</td><td>抢答正确数、必答正确数</td><td>错答倒扣 1 分</td><td>当轮结束 2 小时内</td></tr>
+            <tr><td>体能竞技</td><td>总用时、完成质量</td><td>犯规每次加 30 秒</td><td>当站结束 1 小时内</td></tr>
+          </tbody>
+        </table>
+        <p>读表时注意两点：一是“结算时限”决定你什么时候能看到确定结果，二是“常见扣分”往往比得分项更能解释名次变化。例如体能竞技里一次交接犯规就相当于多跑 30 秒，在差距很小的站点里足以改变排名。</p>
+
+        <h3>轮次与晋级结构</h3>
+        <ul>
+          <li><b>单败淘汰：</b>输一场即出局，常见于星港杯八强战与败者组复活赛，节奏快但容错低。</li>
+          <li><b>三局两胜：</b>主赛阶段通用，首局选图权通常给积分较高一方，后续局由败方选图。</li>
+          <li><b>积分累积：</b>体能竞技与知识问答多采用整轮积分制，单场胜负不直接决定最终名次。</li>
+          <li><b>晋级制：</b>速通挑战周赛前 8 名进入月度总决赛，周赛成绩只决定资格，不带入总决赛计时。</li>
+        </ul>
+
+        <h3>判断一场比赛值不值得投入时间</h3>
+        <p>可以从三个维度快速判断：第一看轮次，淘汰赛和结算轮的信息密度高于常规轮；第二看参赛者构成，是否有你长期关注的选手或队伍；第三看赛制是否会产生明确的分歧点，比如一局定胜负、倒扣分、犯规罚时，这些机制容易制造排名反转，观赛价值更高。</p>
+        <p>反过来，如果你只是想了解某个赛别的基本规则，不必追完整场直播，赛后公示的评分明细和轮次记录通常已经包含足够信息。创意改造和即兴创作尤其如此，作品与评审意见比过程更有阅读价值。</p>
+      </section>
+
+      <!-- 6 体验指南 -->
+      <section class="section" id="guide">
+        <div class="section-head">
+          <h2>从哪一场开始看：观赛与参赛顺序</h2>
+          <span class="h2-en">GUIDE</span>
+        </div>
+        <p class="section-sub">按投入时间与信息密度给出的跟进顺序，适合第一次接触日常赛事的人。</p>
+        <ol class="steps">
+          <li><b>先看一场已结算的完整比赛</b><span>推荐从 11 月 6 日已结算的速通挑战赛周赛入手，结果确定、争议已复核，能完整看到计时规则怎么落地。</span></li>
+          <li><b>再跟一场进行中的淘汰赛</b><span>星港杯八强战的三局两胜结构清晰，适合观察选图权与回合节奏如何影响胜负。</span></li>
+          <li><b>用创意改造赛理解评审逻辑</b><span>第 4 轮“旧物新生”主题的评分项为完成度、创意与可落地性，赛后公示会逐项给分，适合对照自己的判断。</span></li>
+          <li><b>知识问答作为碎片跟进</b><span>每轮 20 题、当日结算，错答倒扣机制让排名波动明显，适合每天花十分钟看结果。</span></li>
+          <li><b>最后决定是否参赛</b><span>参赛门槛按赛别不同：解谜赛需双人组队，接力赛需四人成队，体能竞技需通过赛前体检登记。</span></li>
+        </ol>
+        <hr class="rule">
+        <p>比较同类条目时，优先看结算时限与扣分规则，而不是单场比分。结算越快的赛别，排名信息越及时；扣分项越明确的赛别，争议越少，复盘也越容易。</p>
+      </section>
+
+      <!-- 7 FAQ -->
+      <section class="section" id="faq">
+        <div class="section-head">
+          <h2>关于赛程、赛制与参赛的常见问题</h2>
+          <span class="h2-en">FAQ</span>
+        </div>
+
+        <details class="faq-item">
+          <summary>每日大赛的赛程一般什么时候更新？</summary>
+          <div class="faq-body">赛程按自然日更新，通常在前一天 22:00 前公布次日对阵与开赛时间。遇临时调整，会在开赛前 2 小时于公告条同步变更。积分与赛果在每轮结算后 2 小时内更新到积分榜。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>电竞对抗和知识问答的计分方式有什么区别？</summary>
+          <div class="faq-body">电竞对抗按回合胜场、击杀数与目标点控制综合计分，超时未完成目标会直接判负；知识问答按抢答正确数与必答正确数计分，错答倒扣 1 分，因此保守作答和积极抢答是两种不同策略。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>第一次接触，从哪一场开始看比较好？</summary>
+          <div class="faq-body">建议从已结算的速通挑战赛周赛看起，规则单一、结果确定；再看星港杯八强战感受淘汰赛节奏；最后用创意改造赛的赛后公示理解多项评分。这样比直接追直播更容易建立对赛制的整体认识。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>创意改造赛的评分标准通常是什么？</summary>
+          <div class="faq-body">三项：完成度看作品是否按命题完整实现，创意看方案是否有区别于常规解法的处理，可落地性看材料、工艺与成本是否支持实际制作。三项权重接近，单项突出但另一项缺失通常拿不到高分。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>体能竞技的犯规扣分怎么计算？</summary>
+          <div class="faq-body">每次犯规在总用时上加 30 秒，交接区越线、折返未触线、器材未复位都算一次犯规。同一站点多次犯规累计计算，不设上限，因此净用时接近时犯规次数往往直接决定名次。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>团队接力和限时解谜对组队人数有什么要求？</summary>
+          <div class="faq-body">团队接力为四人一队，需在报名时确定四段任务的交接顺序，赛中不得更换；限时解谜为双人组队，两人共用一套线索链，中途退出按未完成处理。两项赛事都要求全员完成赛前登记。</div>
+        </details>
+      </section>
+
+      <!-- 8 用户评论 -->
+      <section class="section" id="comments">
+        <div class="section-head">
+          <h2>参赛者与观众的具体讨论</h2>
+          <span class="h2-en">COMMENTS</span>
+        </div>
+        <ul class="comment-list">
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">折返线外</span><span class="comment-time">今天 10:12</span></div><p class="comment-text">体能竞技第 3 站折返距离缩到 15 米，节奏明显比前两站快，犯规也更容易发生。</p><span class="comment-target">体能竞技三项组合赛</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">旧物改造中</span><span class="comment-time">今天 09:48</span></div><p class="comment-text">“旧物新生”这个主题比上一轮的“可折叠结构”更好落地，材料成本压下来不少。</p><span class="comment-target">创意改造赛第 4 轮</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">抢答不举手</span><span class="comment-time">今天 09:05</span></div><p class="comment-text">科技专场的必答部分偏基础，抢答才是分水岭，错答倒扣让领先的人反而更保守。</p><span class="comment-target">知识问答擂台赛·科技专场</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">后期运营派</span><span class="comment-time">昨天 22:31</span></div><p class="comment-text">星港杯八强战首局选图权给积分高的一方，这个规则让常规赛排名真的有用。</p><span class="comment-target">星港杯八强战</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">计时器爱好者</span><span class="comment-time">昨天 21:17</span></div><p class="comment-text">速通周赛那次存档点争议复核得挺细，回放逐帧核对，最后维持原判也算服众。</p><span class="comment-target">速通挑战赛周赛</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">第五层没线索</span><span class="comment-time">昨天 18:40</span></div><p class="comment-text">限时解谜第 5 层延迟发放确实影响节奏，不过倒计时顺延了，整体还算公平。</p><span class="comment-target">限时解谜赛·密室线索链</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">九十分钟写作</span><span class="comment-time">昨天 16:22</span></div><p class="comment-text">即兴创作 90 分钟真的紧，命题公布到成稿基本没有修改时间，结构完整比文采重要。</p><span class="comment-target">即兴创作赛·90 分钟命题</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">四段交接员</span><span class="comment-time">11 月 7 日 20:05</span></div><p class="comment-text">接力赛交接顺序比想象中关键，把检索放在第三段能省不少来回跑的时间。</p><span class="comment-target">团队接力赛·四段任务链</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">一局定胜负难</span><span class="comment-time">11 月 7 日 19:30</span></div><p class="comment-text">复活赛一局定胜负抽签选图，运气成分确实大，但节奏比三局两胜紧凑很多。</p><span class="comment-target">星港杯败者组复活赛</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">文史断代难</span><span class="comment-time">11 月 7 日 15:12</span></div><p class="comment-text">文史专场题库偏断代，连续几题都在考同一时期的人物关系，准备过的会占很大便宜。</p><span class="comment-target">知识问答擂台赛·文史专场</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">净计时观众</span><span class="comment-time">11 月 6 日 21:44</span></div><p class="comment-text">速通周赛允许一次存档点重置，这个规则让路线规划比纯手速更重要，挺有意思。</p><span class="comment-target">速通挑战赛·经典关卡重置</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">材料回收站</span><span class="comment-time">11 月 6 日 14:08</span></div><p class="comment-text">创意改造的可落地性评分有点严，材料便宜但工艺复杂一样拿不到分，得两头兼顾。</p><span class="comment-target">创意改造赛·旧物新生主题</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">犯规加三十秒</span><span class="comment-time">11 月 5 日 17:26</span></div><p class="comment-text">体能竞技犯规一次加 30 秒，看着不多，但两站下来累计能掉好几个名次。</p><span class="comment-target">体能竞技三项组合赛</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">双人解谜搭子</span><span class="comment-time">11 月 5 日 11:03</span></div><p class="comment-text">双人组队共用一套线索链，分工比想象中重要，一个人读题一个人记录会快很多。</p><span class="comment-target">限时解谜赛·密室线索链</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">首局选图权</span><span class="comment-time">11 月 4 日 22:19</span></div><p class="comment-text">三局两胜后续局由败方选图，这个安排让第二局经常出现完全不同的地图，观赛体验好。</p><span class="comment-target">星港杯八强战</span></li>
+          <li class="comment-item"><div class="comment-head"><span class="comment-name">朗读环节紧张</span><span class="comment-time">11 月 4 日 19:52</span></div><p class="comment-text">即兴创作现场朗读环节比写作还紧张，评委关注命题贴合度，跑题基本没救。</p><span class="comment-target">即兴创作赛·90 分钟命题</span></li>
+        </ul>
+      </section>
+
+      <!-- 9 相关资讯 -->
+      <section class="section" id="news">
+        <div class="section-head">
+          <h2>赛期内的具体动态</h2>
+          <span class="h2-en">NEWS</span>
+        </div>
+        <ul class="news-list">
+          <li class="news-item">
+            <img src="https://picsum.photos/seed/news-xinggang28/600/400" alt="星港杯八强战抽签现场" width="600" height="400" loading="lazy">
+            <div>
+              <div class="news-date">2026-11-08</div>
+              <h3 class="news-title"><a href="/#news">星港杯八强战对阵公布，首场 19:30 开赛</a></h3>
+              <p class="news-sum">四场八强战全部确定时间，三局两胜制，首局选图权按常规赛积分排序分配。</p>
+            </div>
+          </li>
+          <li class="news-item">
+            <img src="https://picsum.photos/seed/news-chuangyi36/600/400" alt="创意改造赛旧物新生主题作品" width="600" height="400" loading="lazy">
+            <div>
+              <div class="news-date">2026-11-07</div>
+              <h3 class="news-title"><a href="/#news">创意改造赛第 4 轮主题定为“旧物新生”</a></h3>
+              <p class="news-sum">提交截止 11 月 8 日 23:00，评审按完成度、创意、可落地性三项打分，次日公示。</p>
+            </div>
+          </li>
+          <li class="news-item">
+            <img src="https://picsum.photos/seed/news-sutong44/600/400" alt="速通挑战赛计时复核记录" width="600" height="400" loading="lazy">
+            <div>
+              <div class="news-date">2026-11-06</div>
+              <h3 class="news-title"><a href="/#news">速通周赛成绩复核完成，前 8 名晋级月度总决赛</a></h3>
+              <p class="news-sum">1 例存档点使用争议经逐帧回放核对后维持原判，晋级名单与净计时同步公布。</p>
+            </div>
+          </li>
+          <li class="news-item">
+            <img src="https://picsum.photos/seed/news-zhishi51/600/400" alt="知识问答科技专场题库范围" width="600" height="400" loading="lazy">
+            <div>
+              <div class="news-date">2026-11-05</div>
+              <h3 class="news-title"><a href="/#news">知识问答科技专场题库范围调整</a></h3>
+              <p class="news-sum">新增计算史与基础物理两块内容，题量维持 20 题，错答倒扣规则不变。</p>
+            </div>
+          </li>
+          <li class="news-item">
+            <img src="https://picsum.photos/seed/news-tineng63/600/400" alt="体能竞技第三站室内馆场地" width="600" height="400" loading="lazy">
+            <div>
+              <div class="news-date">2026-11-04</div>
+              <h3 class="news-title"><a href="/#news">体能竞技第 3 站改室内馆，折返距离缩短至 15 米</a></h3>
+              <p class="news-sum">场地变更后负重跑距离不变，敏捷折返组数仍为 10 组，犯规罚时标准维持 30 秒。</p>
+            </div>
+          </li>
+          <li class="news-item">
+            <img src="https://picsum.photos/seed/news-jieli72/600/400" alt="团队接力赛交接区布置" width="600" height="400" loading="lazy">
+            <div>
+              <div class="news-date">2026-11-03</div>
+              <h3 class="news-title"><a href="/#news">团队接力赛开放补报名，四人队伍可补一人</a></h3>
+              <p class="news-sum">已报名队伍可在 11 月 9 日 18:00 前补齐第四人，交接顺序一经确认不再更改。</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 10 相关推荐 -->
+      <section class="section" id="related">
+        <div class="section-head">
+          <h2>延伸方向与具体条目</h2>
+          <span class="h2-en">RELATED</span>
+        </div>
+        <p class="section-sub">从当前赛事延伸出的规则条目、赛别方向与复盘切口。</p>
+        <div class="tag-index">
+          <a href="/#deep-dive">三局两胜选图规则</a>
+          <a href="/#deep-dive">错答倒扣分策略</a>
+          <a href="/#deep-dive">犯规罚时 30 秒</a>
+          <a href="/#featured">旧物新生主题拆解</a>
+          <a href="/#featured">90 分钟命题写作结构</a>
+          <a href="/#guide">双人解谜分工方式</a>
+          <a href="/#featured">败者组复活赛抽签选图</a>
+          <a href="/#rank">整轮积分累积算法</a>
+        </div>
+      </section>
+
+      <!-- 11 积分榜 -->
+      <section class="section" id="rank">
+        <div class="section-head">
+          <h2>赛期积分榜（截至 11 月 8 日 12:00）</h2>
+          <span class="h2-en">RANKING</span>
+        </div>
+        <p class="section-sub">按赛别方向汇总的当前积分，含已完成轮次与进行中赛事的实时得分。</p>
+        <ol class="rank-list">
+          <li><span class="rank-name">星港战队<small>电竞对抗 · 八强战进行中</small></span><span class="rank-score">48 分</span></li>
+          <li><span class="rank-name">旧物工坊<small>创意改造 · 第 4 轮待评审</small></span><span class="rank-score">45 分</span></li>
+          <li><span class="rank-name">折返线内<small>体能竞技 · 第 3 站热身中</small></span><span class="rank-score">42 分</span></li>
+          <li><span class="rank-name">抢答不举手<small>知识问答 · 科技专场</small></span><span class="rank-score">39 分</span></li>
+          <li><span class="rank-name">净计时小组<small>速通挑战 · 周赛已结算</small></span><span class="rank-score">36 分</span></li>
+          <li><span class="rank-name">第五层线索<small>限时解谜 · 第 5 层进行中</small></span><span class="rank-score">33 分</span></li>
+          <li><span class="rank-name">九十分钟成稿<small>即兴创作 · 今晚 20:00 开赛</small></span><span class="rank-score">30 分</span></li>
+          <li><span class="rank-name">四段交接<small>团队接力 · 11 月 10 日开赛</small></span><span class="rank-score">27 分</span></li>
+        </ol>
+      </section>
+
+    </div>
+
+    <!-- 右辅助栏 -->
+    <aside class="aside-col" aria-label="辅助信息">
+
+      <section class="aside-card" id="calendar">
+        <h2>11 月赛期日历 <span>NOV</span></h2>
+        <div class="calendar-grid" aria-hidden="true">
+          <span class="dow">一</span><span class="dow">二</span><span class="dow">三</span><span class="dow">四</span><span class="dow">五</span><span class="dow">六</span><span class="dow">日</span>
+          <span class="day">2</span><span class="day">3</span><span class="day">4</span><span class="day">5</span><span class="day has">6</span><span class="day has">7</span><span class="day today">8</span>
+          <span class="day has">9</span><span class="day has">10</span><span class="day">11</span><span class="day">12</span><span class="day">13</span><span class="day has">14</span><span class="day has">15</span>
+        </div>
+        <p class="calendar-cap">深色为今日 11 月 8 日，描边日期有已排定赛事。每日 09:00 前后更新次日赛程。</p>
+      </section>
+
+      <section class="aside-card">
+        <h3>今日关键节点</h3>
+        <ul class="mini-list">
+          <li><b>19:30</b> 星港杯八强战第一场<span class="mini-date">三局两胜，直播同步</span></li>
+          <li><b>20:00</b> 即兴创作赛命题公布<span class="mini-date">90 分钟封闭写作</span></li>
+          <li><b>21:00</b> 星港杯败者组复活赛<span class="mini-date">一局定胜负</span></li>
+          <li><b>23:00</b> 创意改造赛提交截止<span class="mini-date">逾期按缺赛处理</span></li>
+        </ul>
+      </section>
+
+      <section class="aside-card">
+        <h3>近期结算记录</h3>
+        <ul class="mini-list">
+          <li><b>速通周赛</b> 前 8 名晋级确认<span class="mini-date">11 月 6 日 14:30</span></li>
+          <li><b>文史专场</b> 擂台赛结算完成<span class="mini-date">11 月 7 日 21:10</span></li>
+          <li><b>限时解谜</b> 第 4 轮成绩公示<span class="mini-date">11 月 5 日 18:00</span></li>
+          <li><b>体能竞技</b> 第 2 站排名确认<span class="mini-date">11 月 3 日 17:20</span></li>
+        </ul>
+      </section>
+
+      <section class="aside-card">
+        <h3>参赛门槛速查</h3>
+        <ul class="mini-list">
+          <li><b>电竞对抗</b> 单人报名，需完成赛前设备登记</li>
+          <li><b>创意改造</b> 单人，提交实物照片与方案</li>
+          <li><b>限时解谜</b> 双人组队，共用一套线索链</li>
+          <li><b>团队接力</b> 四人成队，交接顺序赛前锁定</li>
+          <li><b>体能竞技</b> 需通过赛前体检登记</li>
+        </ul>
+      </section>
+
+    </aside>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <svg width="38" height="38" viewBox="0 0 64 64" role="img" aria-label="每日大赛标志">
+            <rect width="64" height="64" rx="14" fill="#22375a"/>
+            <path d="M32 9l6.4 14.6L54 25.4 43.2 35.6 46.4 51 32 43.3 17.6 51l3.2-15.4L10 25.4l15.6-1.8z" fill="#ffb703"/>
+            <circle cx="32" cy="31" r="6.5" fill="#22375a"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">每日大赛</span>
+            <span class="brand-sub">DAILY ARENA</span>
+          </div>
+        </div>
+        <p class="footer-desc">按自然日推进的赛事聚合：电竞对抗、创意改造、知识问答、体能竞技、团队接力、限时解谜、速通挑战与即兴创作，提供开赛时间、赛制轮次、评分口径与积分结算信息。</p>
+      </div>
+      <div class="footer-col">
+        <h3>赛别入口</h3>
+        <ul>
+          <li><a href="/#categories">电竞对抗</a></li>
+          <li><a href="/#categories">创意改造</a></li>
+          <li><a href="/#categories">知识问答</a></li>
+          <li><a href="/#categories">体能竞技</a></li>
+          <li><a href="/#categories">团队接力</a></li>
+          <li><a href="/#categories">限时解谜</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>赛程与规则</h3>
+        <ul>
+          <li><a href="/#today-update">今日对阵</a></li>
+          <li><a href="/#deep-dive">赛制解析</a></li>
+          <li><a href="/#guide">观赛指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#rank">积分榜</a></li>
+          <li><a href="/#news">赛期动态</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 每日大赛 · 赛事日历与赛程追踪</span>
+      <span class="example-note">部分内容为示例数据，仅用于展示页面结构</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var input = document.getElementById('siteSearch');
+  var btn = document.getElementById('searchBtn');
+  var fb = document.getElementById('searchFeedback');
+  var targets = Array.prototype.slice.call(
+    document.querySelectorAll('main .card, main .update-list li, main .faq-item, main .news-item, main .comment-item, main .cat-item, main .rank-list li, main .tag-index a')
+  );
+  var original = targets.map(function(el){
+    return { el: el, disp: el.style.display, parent: el.parentNode };
+  });
+
+  function reset(){
+    original.forEach(function(o){ o.el.style.display = o.disp; });
+    fb.classList.remove('show');
+    fb.textContent = '';
+  }
+
+  function run(){
+    var q = (input.value || '').trim().toLowerCase();
+    if(!q){ reset(); return; }
+    var hits = 0;
+    original.forEach(function(o){
+      var text = (o.el.textContent || '').toLowerCase();
+      var match = text.indexOf(q) > -1;
+      o.el.style.display = match ? o.disp : 'none';
+      if(match) hits++;
+    });
+    fb.classList.add('show');
+    if(hits === 0){
+      fb.textContent = '没有找到与“' + input.value.trim() + '”匹配的赛事条目，试试“星港杯”“旧物新生”或“速通”。';
+    } else {
+      fb.textContent = '找到 ' + hits + ' 条与“' + input.value.trim() + '”相关的赛事内容。';
+    }
+  }
+
+  btn.addEventListener('click', run);
+  input.addEventListener('input', function(){
+    if(!input.value.trim()){ reset(); }
+  });
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); run(); }
+    if(e.key === 'Escape'){ input.value=''; reset(); }
+  });
+})();
+</script>
+
+</body>
+                </html>
