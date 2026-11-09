@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>海角社区今日回家方式 - 导航入口与访问路径</title>
+<meta name="description" content="海角社区今日回家方式汇总最新可用入口、访问路径与常见问题，整理镜像域名判断、登录异常处理、客户端适配等具体条目，适合需要稳定访问的社区用户查阅。">
+<meta name="keywords" content="回家入口地址,镜像域名,访问路径,登录异常,社区导航">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3d4f'/%3E%3Cpath d='M12 40c8-14 14-18 20-18s12 4 20 18' stroke='%2336c6b0' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='46' r='5' fill='%23f2b544'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f4f7f8;
+  --panel:#ffffff;
+  --ink:#12242b;
+  --ink-2:#3c5761;
+  --ink-3:#6d8790;
+  --line:#dbe6e9;
+  --brand:#0b3d4f;
+  --brand-2:#12657a;
+  --accent:#36c6b0;
+  --accent-2:#f2b544;
+  --danger:#c25a4a;
+  --radius:12px;
+  --radius-s:8px;
+  --shadow:0 1px 2px rgba(18,36,43,.06),0 8px 24px rgba(18,36,43,.06);
+  --shadow-s:0 1px 2px rgba(18,36,43,.08);
+  --gap:20px;
+  --head-h:64px;
+  --bar-h:38px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{margin:0;line-height:1.35;color:var(--ink)}
+p{margin:0 0 12px}
+ul,ol{margin:0 0 12px;padding-left:20px}
+li{margin:4px 0}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* ===== 吸顶公告条 + 页头 ===== */
+.sticky-top{position:sticky;top:0;z-index:60}
+.notice-bar{
+  height:var(--bar-h);
+  background:var(--brand);
+  color:#dff3f0;
+  font-size:13.5px;
+  display:flex;align-items:center;
+  overflow:hidden;
+}
+.notice-bar .wrap{
+  max-width:1360px;margin:0 auto;padding:0 20px;width:100%;
+  display:flex;align-items:center;gap:12px;
+}
+.notice-tag{
+  flex:0 0 auto;background:var(--accent-2);color:#2a1c00;
+  font-weight:700;font-size:12px;border-radius:4px;padding:1px 7px;letter-spacing:.5px;
+}
+.notice-text{flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.notice-text a{color:#ffffff;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.4)}
+.notice-more{flex:0 0 auto;color:var(--accent);font-size:13px;white-space:nowrap}
+
+.site-header{
+  height:var(--head-h);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.site-header .wrap{
+  max-width:1360px;margin:0 auto;padding:0 20px;height:100%;
+  display:flex;align-items:center;gap:24px;
+}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+.brand svg{display:block}
+.brand-name{font-size:18px;font-weight:800;letter-spacing:.4px;color:var(--brand);white-space:nowrap}
+.main-nav{display:flex;align-items:center;gap:2px;flex:1 1 auto;overflow:hidden}
+.main-nav a{
+  font-size:14.5px;color:var(--ink-2);padding:6px 10px;border-radius:6px;white-space:nowrap;
+}
+.main-nav a:hover{background:#eaf4f3;color:var(--brand);text-decoration:none}
+.header-tools{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.search-box{display:flex;align-items:center;gap:6px}
+.search-box input{
+  width:150px;height:34px;border:1px solid var(--line);background:#f7fafb;
+  border-radius:8px;padding:0 10px;font-size:13.5px;color:var(--ink);
+}
+.search-box input:focus{background:#fff;border-color:var(--accent);outline:none}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  height:34px;padding:0 14px;border-radius:8px;border:1px solid transparent;
+  background:var(--brand);color:#fff;font-size:13.5px;font-weight:600;cursor:pointer;
+  font-family:inherit;
+}
+.btn:hover{background:var(--brand-2);text-decoration:none;color:#fff}
+.btn.ghost{background:#fff;color:var(--brand);border-color:var(--line)}
+.btn.ghost:hover{background:#eef7f6;color:var(--brand)}
+.menu-toggle{display:none}
+
+/* ===== 首屏 ===== */
+.hero{
+  background:
+    radial-gradient(900px 340px at 88% -60px, rgba(54,198,176,.22), transparent 70%),
+    linear-gradient(160deg,#0b3d4f 0%,#0e4d61 55%,#12657a 100%);
+  color:#e9f6f4;position:relative;overflow:hidden;
+}
+.hero .wrap{
+  max-width:1360px;margin:0 auto;padding:44px 20px 40px;
+  display:grid;grid-template-columns:1.35fr .95fr;gap:36px;align-items:center;
+}
+.hero-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;letter-spacing:1.2px;color:var(--accent);
+  border:1px solid rgba(54,198,176,.45);border-radius:999px;padding:3px 12px;margin-bottom:14px;
+}
+.hero h1{
+  font-size:clamp(28px,3.6vw,44px);color:#fff;letter-spacing:.5px;margin-bottom:12px;
+}
+.hero-lead{font-size:15.5px;color:#c3e2df;max-width:56ch;margin-bottom:20px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.hero-actions .btn{height:40px;padding:0 18px;font-size:14.5px}
+.hero-actions .btn.alt{background:var(--accent);color:#06333c}
+.hero-actions .btn.alt:hover{background:#4bd6c1;color:#06333c}
+.hero-actions .btn.line{background:transparent;border-color:rgba(255,255,255,.35);color:#e9f6f4}
+.hero-actions .btn.line:hover{background:rgba(255,255,255,.1);color:#fff}
+.hero-stats{display:flex;flex-wrap:wrap;gap:26px;border-top:1px solid rgba(255,255,255,.14);padding-top:16px}
+.hero-stats div{font-size:12.5px;color:#9dc7c6}
+.hero-stats strong{display:block;font-size:20px;color:#fff;font-family:inherit;letter-spacing:.5px}
+
+.hero-visual{position:relative}
+.route-card{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:16px;padding:18px;
+  backdrop-filter:blur(4px);
+}
+.route-card h2{font-size:14px;color:#bfe6e2;font-weight:600;letter-spacing:.5px;margin-bottom:12px}
+.route-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.route-list li{
+  display:flex;align-items:center;gap:10px;
+  background:rgba(255,255,255,.06);border-radius:10px;padding:9px 12px;margin:0;
+  font-size:13.5px;color:#dff2f0;
+}
+.route-list .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:0 0 auto;box-shadow:0 0 0 3px rgba(54,198,176,.18)}
+.route-list .dot.warn{background:var(--accent-2);box-shadow:0 0 0 3px rgba(242,181,68,.2)}
+.route-list .state{margin-left:auto;font-size:12px;color:#9dc7c6;white-space:nowrap}
+.route-list .state.ok{color:#7ee0cd}
+.route-list .state.bad{color:#f0a99b}
+
+/* ===== 主内容区：三栏 ===== */
+.layout{
+  max-width:1360px;margin:0 auto;padding:28px 20px 60px;
+  display:grid;grid-template-columns:190px minmax(0,1fr) 260px;gap:26px;
+  align-items:start;
+}
+.channel-col,.aside-col{position:sticky;top:calc(var(--bar-h) + var(--head-h) + 16px)}
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-s);
+}
+.channel-col .panel{padding:14px}
+.col-title{
+  font-size:12.5px;font-weight:700;color:var(--ink-3);letter-spacing:1.4px;
+  text-transform:uppercase;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line);
+}
+.channel-list{list-style:none;padding:0;margin:0}
+.channel-list li{margin:0}
+.channel-list a{
+  display:flex;align-items:center;justify-content:space-between;gap:6px;
+  padding:7px 8px;border-radius:7px;font-size:14px;color:var(--ink-2);
+}
+.channel-list a:hover{background:#edf6f5;color:var(--brand);text-decoration:none}
+.channel-list .num{font-size:11.5px;color:var(--ink-3)}
+
+.main-col{min-width:0}
+.section{margin-bottom:34px;scroll-margin-top:calc(var(--bar-h) + var(--head-h) + 14px)}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.section-head h2{font-size:21px;letter-spacing:.3px}
+.section-head h2 .idx{color:var(--accent);font-size:13px;font-weight:700;margin-right:8px;letter-spacing:1px}
+.section-head .sub{font-size:13px;color:var(--ink-3)}
+.section-desc{font-size:14px;color:var(--ink-2);margin-bottom:16px}
+
+/* 概览 */
+.overview{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 24px;box-shadow:var(--shadow-s);font-size:15px;color:var(--ink-2);
+}
+.overview p:last-child{margin-bottom:0}
+.overview strong{color:var(--ink)}
+
+/* 卡片网格 */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-s);display:flex;flex-direction:column;
+  transition:box-shadow .18s ease, transform .18s ease;
+}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.card-cover{aspect-ratio:4/3;background:#dfe9ea;overflow:hidden}
+.card-cover img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:13px 14px 14px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-title{font-size:15.5px;font-weight:700;color:var(--ink)}
+.type-tag{
+  display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.5px;
+  background:#e6f5f2;color:#0d6b60;border-radius:5px;padding:1px 7px;
+}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px}
+.tag{
+  font-size:11.5px;color:var(--ink-3);background:#f2f6f7;border:1px solid var(--line);
+  border-radius:999px;padding:1px 8px;white-space:nowrap;
+}
+.card-desc{font-size:13.5px;color:var(--ink-2);line-height:1.65;flex:1;margin:0}
+.card-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:8px}
+.card-meta .hot{color:var(--danger);font-weight:700}
+
+/* 更新流 */
+.update-list{list-style:none;padding:0;margin:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.update-list li{
+  display:grid;grid-template-columns:74px minmax(0,1fr);gap:12px;
+  padding:12px 16px;margin:0;border-bottom:1px solid var(--line);font-size:14px;
+}
+.update-list li:last-child{border-bottom:0}
+.update-list time{font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums;padding-top:2px}
+.update-list b{color:var(--ink);font-weight:700}
+.update-list span{color:var(--ink-2)}
+.update-list .pill{font-size:11px;color:#0d6b60;background:#e6f5f2;border-radius:4px;padding:0 6px;margin-left:6px;white-space:nowrap}
+
+/* 分类入口 */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cat-item{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-s);
+  padding:11px 13px;font-size:14px;font-weight:600;color:var(--ink);
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.cat-item small{font-size:11.5px;color:var(--ink-3);font-weight:400}
+.cat-item:hover{border-color:var(--accent);color:var(--brand);text-decoration:none;background:#f3fbfa}
+.filter-bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.filter-btn{
+  font-size:13px;border:1px solid var(--line);background:#fff;color:var(--ink-2);
+  border-radius:999px;padding:4px 13px;cursor:pointer;font-family:inherit;
+}
+.filter-btn:hover{border-color:var(--accent);color:var(--brand)}
+.filter-btn[aria-pressed="true"]{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+/* 深度解析 */
+.article{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow-s);font-size:15px;color:var(--ink-2);
+}
+.article h3{font-size:17px;color:var(--ink);margin:24px 0 10px;padding-left:10px;border-left:3px solid var(--accent)}
+.article h3:first-of-type{margin-top:6px}
+.article ul{padding-left:20px}
+.article li{margin:6px 0}
+.callout{
+  background:#f0f8f7;border:1px solid #cfe8e3;border-radius:var(--radius-s);
+  padding:12px 14px;font-size:13.5px;color:#0d5c54;margin:14px 0;
+}
+
+/* 对比面板 */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.compare-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.compare-panel h3{font-size:15px;color:var(--ink);margin-bottom:8px}
+.compare-panel ul{font-size:13.5px;color:var(--ink-2);padding-left:18px;margin:0}
+.compare-panel.bad{border-top:3px solid var(--danger)}
+.compare-panel.good{border-top:3px solid var(--accent)}
+
+/* 步骤 */
+.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{
+  counter-increment:s;position:relative;padding:0 0 16px 44px;margin:0;
+  border-left:2px solid var(--line);margin-left:15px;
+}
+.steps li:last-child{border-left-color:transparent;padding-bottom:0}
+.steps li::before{
+  content:counter(s);position:absolute;left:-16px;top:0;
+  width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
+}
+.steps h3{font-size:15px;margin-bottom:4px}
+.steps p{font-size:13.5px;margin:0;color:var(--ink-2)}
+
+/* FAQ */
+.faq{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.faq details{border-bottom:1px solid var(--line)}
+.faq details:last-child{border-bottom:0}
+.faq summary{
+  cursor:pointer;padding:14px 18px;font-size:15px;font-weight:600;color:var(--ink);
+  list-style:none;display:flex;align-items:center;gap:10px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";color:var(--accent);font-size:18px;font-weight:700;width:14px;flex:0 0 auto}
+.faq details[open] summary::before{content:"–"}
+.faq .answer{padding:0 18px 16px 42px;font-size:14px;color:var(--ink-2)}
+.faq .answer p:last-child{margin-bottom:0}
+
+/* 评论 */
+.comment-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.comment{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-s);
+  padding:12px 14px;font-size:13.5px;color:var(--ink-2);
+}
+.comment-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.avatar{
+  width:26px;height:26px;border-radius:50%;flex:0 0 auto;
+  background:linear-gradient(135deg,#12657a,#36c6b0);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+}
+.comment-name{font-size:13px;font-weight:700;color:var(--ink)}
+.comment time{margin-left:auto;font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+.comment p{margin:0}
+.comment .quote{color:var(--brand-2);font-weight:600}
+
+/* 资讯 */
+.news-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.news-item{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px 16px;
+}
+.news-item h3{font-size:15.5px;margin-bottom:4px}
+.news-item .meta{font-size:12px;color:var(--ink-3);margin-bottom:6px}
+.news-item p{font-size:13.5px;margin:0;color:var(--ink-2)}
+
+/* 相关推荐 */
+.rec-list{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.rec-list a{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--panel);border:1px solid var(--line);border-radius:999px;
+  padding:5px 13px;font-size:13.5px;color:var(--ink-2);
+}
+.rec-list a:hover{border-color:var(--accent);color:var(--brand);text-decoration:none;background:#f3fbfa}
+.rec-list .arrow{color:var(--accent);font-size:12px}
+
+/* 榜单 */
+.rank-list{list-style:none;padding:0;margin:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.rank-list li{
+  display:flex;align-items:center;gap:12px;padding:11px 16px;margin:0;
+  border-bottom:1px solid var(--line);font-size:14px;
+}
+.rank-list li:last-child{border-bottom:0}
+.rank-no{
+  width:22px;height:22px;border-radius:6px;background:#eef3f4;color:var(--ink-2);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:0 0 auto;
+}
+.rank-list li:nth-child(-n+3) .rank-no{background:var(--brand);color:#fff}
+.rank-name{flex:1 1 auto;min-width:0;font-weight:600;color:var(--ink)}
+.rank-name small{display:block;font-weight:400;font-size:12px;color:var(--ink-3)}
+.rank-val{font-size:12px;color:var(--ink-3);white-space:nowrap}
+
+/* 侧栏 */
+.aside-col .panel{padding:14px 16px;margin-bottom:16px}
+.aside-col .panel:last-child{margin-bottom:0}
+.hot-list{list-style:none;padding:0;margin:0;counter-reset:h}
+.hot-list li{
+  counter-increment:h;display:flex;gap:10px;align-items:flex-start;
+  padding:8px 0;border-bottom:1px dashed var(--line);margin:0;font-size:13.5px;
+}
+.hot-list li:last-child{border-bottom:0;padding-bottom:0}
+.hot-list li::before{
+  content:counter(h);color:var(--accent);font-weight:700;font-size:12px;
+  width:16px;flex:0 0 auto;padding-top:2px;
+}
+.hot-list a{color:var(--ink-2);line-height:1.5}
+.hot-list a:hover{color:var(--brand)}
+.hot-list .m{display:block;font-size:11.5px;color:var(--ink-3)}
+.timeline{list-style:none;padding:0;margin:0;font-size:13px}
+.timeline li{position:relative;padding:0 0 14px 16px;border-left:1px solid var(--line);margin:0}
+.timeline li:last-child{padding-bottom:0;border-left-color:transparent}
+.timeline li::before{
+  content:"";position:absolute;left:-4px;top:8px;width:7px;height:7px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 0 3px #e6f5f2;
+}
+.timeline .t{font-size:11.5px;color:var(--ink-3);display:block}
+.timeline b{color:var(--ink);font-weight:600}
+.aside-note{font-size:12.5px;color:var(--ink-3);line-height:1.6;margin:0}
+
+/* 页尾 */
+.site-footer{background:#0d2b35;color:#a9c4c8;font-size:13.5px;margin-top:20px}
+.site-footer .wrap{max-width:1360px;margin:0 auto;padding:36px 20px 20px}
+.footer-top{display:grid;grid-template-columns:1.4fr 2fr;gap:32px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-brand{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.footer-brand span{font-size:17px;font-weight:800;color:#fff}
+.footer-desc{max-width:40ch;line-height:1.7;margin:0;color:#8fb0b5}
+.footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.footer-cols h4{font-size:13px;color:#fff;margin-bottom:8px;letter-spacing:.5px}
+.footer-cols ul{list-style:none;padding:0;margin:0}
+.footer-cols li{margin:5px 0}
+.footer-cols a{color:#a9c4c8;font-size:13px}
+.footer-cols a:hover{color:var(--accent)}
+.footer-bottom{padding-top:16px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:12px;color:#7d9ba0}
+
+/* ===== 响应式 ===== */
+@media (max-width:1024px){
+  .layout{grid-template-columns:200px minmax(0,1fr);gap:22px}
+  .aside-col{position:static;grid-column:1 / -1;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  .aside-col .panel{margin-bottom:0}
+  .hero .wrap{grid-template-columns:1fr;gap:26px;padding:36px 20px 32px}
+  .main-nav{display:none}
+  .menu-toggle{display:inline-flex}
+  .main-nav.open{
+    display:flex;position:absolute;top:calc(var(--bar-h) + var(--head-h));left:0;right:0;
+    background:#fff;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;
+    padding:8px 12px 12px;gap:2px;box-shadow:var(--shadow);z-index:70;
+  }
+  .main-nav.open a{padding:9px 10px}
+  .search-box input{width:130px}
+  .compare{grid-template-columns:1fr}
+}
+@media (max-width:740px){
+  :root{--head-h:58px}
+  .layout{grid-template-columns:1fr;gap:20px;padding:20px 14px 44px}
+  .channel-col{position:static}
+  .channel-list{display:flex;flex-wrap:wrap;gap:6px}
+  .channel-list li{flex:1 1 40%}
+  .channel-list a{padding:6px 9px;font-size:13.5px}
+  .aside-col{grid-template-columns:1fr}
+  .hero .wrap{padding:28px 14px 26px}
+  .hero-stats{gap:18px}
+  .site-header .wrap{padding:0 14px;gap:10px}
+  .brand-name{font-size:16px}
+  .search-box{display:none}
+  .notice-bar .wrap{padding:0 14px}
+  .notice-more{display:none}
+  .article{padding:20px 18px}
+  .footer-top{grid-template-columns:1fr;gap:22px}
+  .footer-cols{grid-template-columns:1fr 1fr}
+  .update-list li{grid-template-columns:1fr;gap:2px}
+  .section-head h2{font-size:19px}
+  .card-grid{grid-template-columns:1fr}
+  .comment-grid{grid-template-columns:1fr}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-top">
+  <div class="notice-bar">
+    <div class="wrap">
+      <span class="notice-tag">今日更新</span>
+      <span class="notice-text">11 月 8 日新增 6 条可用入口记录：含 3 个镜像域名、2 条客户端访问路径、1 条登录异常处理说明 · <a href="/#update">查看更新明细</a></span>
+      <a class="notice-more" href="/#faq">常见问题</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/#top" aria-label="海角社区今日回家方式 首页">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="#0b3d4f"/>
+          <path d="M12 40c8-14 14-18 20-18s12 4 20 18" stroke="#36c6b0" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="32" cy="46" r="5" fill="#f2b544"/>
+        </svg>
+        <span class="brand-name">海角社区今日回家方式</span>
+      </a>
+      <nav class="main-nav" id="mainNav" aria-label="主题导航">
+        <a href="/#overview">入口概览</a>
+        <a href="/#routes">今日入口</a>
+        <a href="/#update">更新动态</a>
+        <a href="/#category">分类导航</a>
+        <a href="/#guide">访问路径</a>
+        <a href="/#faq">常见问题</a>
+        <a href="/#rank">入口榜单</a>
+      </nav>
+      <div class="header-tools">
+        <div class="search-box">
+          <input id="searchInput" type="search" placeholder="搜入口 / 异常 / 路径" aria-label="搜索本页入口与问题">
+          <button class="btn ghost" id="searchBtn" type="button">查找</button>
+        </div>
+        <button class="btn ghost menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">菜单</button>
+      </div>
+    </div>
+  </header>
+</div>
+
+<main id="top">
+
+  <!-- 首屏 -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <div>
+        <span class="hero-kicker">2026-11-08 · 当日入口记录</span>
+        <h1 id="heroTitle">海角社区今日回家方式</h1>
+        <p class="hero-lead">汇总当天可访问的入口地址、镜像域名、客户端访问路径与登录异常处理办法，按可用状态、更新时间和适配端分类排列，方便按自己的设备与网络环境选择。</p>
+        <div class="hero-actions">
+          <a class="btn alt" href="/#routes">查看今日入口</a>
+          <a class="btn line" href="/#guide">访问路径指南</a>
+          <a class="btn line" href="/#faq">登录异常排查</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>6</strong>今日新增记录</div>
+          <div><strong>12</strong>当前可用入口</div>
+          <div><strong>4</strong>常见异常类型</div>
+          <div><strong>09:30</strong>最近核验时间</div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="route-card">
+          <h2>今日入口状态速览</h2>
+          <ul class="route-list">
+            <li><span class="dot"></span>主站入口线路 A<span class="state ok">可用</span></li>
+            <li><span class="dot"></span>镜像域名 hjsq-02<span class="state ok">可用</span></li>
+            <li><span class="dot"></span>镜像域名 hjsq-05<span class="state ok">可用</span></li>
+            <li><span class="dot warn"></span>线路 C（移动网络）<span class="state bad">延迟偏高</span></li>
+            <li><span class="dot"></span>桌面客户端直连<span class="state ok">可用</span></li>
+            <li><span class="dot warn"></span>旧书签入口<span class="state bad">已失效</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+
+    <!-- 左频道索引 -->
+    <aside class="channel-col" aria-label="频道索引">
+      <div class="panel">
+        <p class="col-title">频道索引</p>
+        <ul class="channel-list">
+          <li><a href="/#overview">入口概览<span class="num">01</span></a></li>
+          <li><a href="/#routes">今日入口<span class="num">02</span></a></li>
+          <li><a href="/#update">更新动态<span class="num">03</span></a></li>
+          <li><a href="/#category">分类导航<span class="num">04</span></a></li>
+          <li><a href="/#deep">深度解析<span class="num">05</span></a></li>
+          <li><a href="/#guide">访问路径<span class="num">06</span></a></li>
+          <li><a href="/#faq">常见问题<span class="num">07</span></a></li>
+          <li><a href="/#comments">用户反馈<span class="num">08</span></a></li>
+          <li><a href="/#news">相关资讯<span class="num">09</span></a></li>
+          <li><a href="/#rec">延伸方向<span class="num">10</span></a></li>
+          <li><a href="/#rank">入口榜单<span class="num">11</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- 中主内容 -->
+    <div class="main-col">
+
+      <!-- 01 概览 -->
+      <section class="section" id="overview" aria-labelledby="overviewTitle">
+        <div class="section-head">
+          <h2 id="overviewTitle"><span class="idx">01</span>入口概览：今天可以走哪几条路</h2>
+          <span class="sub">2026-11-08 核验</span>
+        </div>
+        <div class="overview">
+          <p>社区类站点的“回家方式”通常包含四类路径：<strong>主站直连</strong>、<strong>镜像域名</strong>、<strong>客户端内置线路</strong>和<strong>备用中转页</strong>。主站直连适合网络环境稳定、DNS 解析正常的用户；镜像域名适合主站被解析到异常节点时临时替换；客户端线路则由程序内置的线路池自动分配，适合不熟悉手动改地址的使用者。备用中转页一般只承担跳转功能，本身不承载内容，因此打开速度快但可用时间往往较短。</p>
+          <p>今天的入口记录里，主站线路 A 与两条镜像域名（hjsq-02、hjsq-05）在电信与联通网络下均能正常打开；移动网络下的线路 C 出现延迟升高，页面能加载但图片资源加载偏慢。桌面客户端直连线路今日 09:30 完成一次核验，登录与列表页均正常。旧书签中保存的早期入口已确认失效，继续点击只会返回连接超时，建议直接替换为新记录。</p>
+          <p>判断一条入口是否值得使用，可以看三点：打开后是否出现完整的登录表单、页面底部版本号是否与当天记录一致、加载过程中是否被跳转到陌生域名。三项都正常，基本可以确认这条路径可用；若出现跳转或证书警告，应立即停止使用并换用下一条记录。</p>
+        </div>
+      </section>
+
+      <!-- 02 今日入口卡片 -->
+      <section class="section" id="routes" aria-labelledby="routesTitle">
+        <div class="section-head">
+          <h2 id="routesTitle"><span class="idx">02</span>今日可用入口与访问方式</h2>
+          <span class="sub">按核验时间排序</span>
+        </div>
+        <p class="section-desc">以下条目为 11 月 8 日当天核验的入口记录，按适配端、线路类型与核验时间整理，点击标题可查看该条目的具体说明。</p>
+        <div class="card-grid">
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-entry01/400/300" alt="主站线路 A 入口核验记录封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">主站直连</span>
+              <h3 class="card-title">主站线路 A · 电信/联通可用</h3>
+              <div class="tag-row"><span class="tag">桌面端</span><span class="tag">登录正常</span><span class="tag">09:30 核验</span></div>
+              <p class="card-desc">今日 09:30 核验通过，登录表单与内容列表均完整加载，页面底部版本号与当日记录一致，适合网络环境稳定的桌面用户首选。</p>
+              <div class="card-meta"><span>核验 09:30</span><span class="hot">可用</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-mirror02/400/300" alt="镜像域名 hjsq-02 访问记录封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">镜像域名</span>
+              <h3 class="card-title">镜像域名 hjsq-02 · 全网络可用</h3>
+              <div class="tag-row"><span class="tag">手机端</span><span class="tag">全网络</span><span class="tag">09:05 核验</span></div>
+              <p class="card-desc">与主站内容同步，今日在移动、电信、联通三网均能打开，适合主站解析异常时临时替换，登录态与主站互通。</p>
+              <div class="card-meta"><span>核验 09:05</span><span class="hot">可用</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-mirror05/400/300" alt="镜像域名 hjsq-05 访问记录封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">镜像域名</span>
+              <h3 class="card-title">镜像域名 hjsq-05 · 图片加载偏慢</h3>
+              <div class="tag-row"><span class="tag">手机端</span><span class="tag">联通优先</span><span class="tag">08:48 核验</span></div>
+              <p class="card-desc">页面结构与主站一致，文字内容加载正常，封面图在部分时段需要刷新一次才能显示，适合以阅读文字为主的访问场景。</p>
+              <div class="card-meta"><span>核验 08:48</span><span class="hot">可用</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-client03/400/300" alt="桌面客户端直连线路说明封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">客户端线路</span>
+              <h3 class="card-title">桌面客户端直连 · 自动分配线路</h3>
+              <div class="tag-row"><span class="tag">Windows</span><span class="tag">macOS</span><span class="tag">线路池</span></div>
+              <p class="card-desc">客户端内置线路池会按当前网络自动选择节点，今日默认分配至线路 B，登录与消息推送正常，适合不想手动切换地址的用户。</p>
+              <div class="card-meta"><span>核验 09:12</span><span class="hot">可用</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-mobilec/400/300" alt="移动网络线路 C 延迟记录封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">主站线路</span>
+              <h3 class="card-title">线路 C · 移动网络延迟偏高</h3>
+              <div class="tag-row"><span class="tag">移动网络</span><span class="tag">延迟</span><span class="tag">08:20 核验</span></div>
+              <p class="card-desc">页面能打开但首屏等待时间超过 8 秒，图片资源加载不完整，建议移动网络用户优先改用镜像域名 hjsq-02。</p>
+              <div class="card-meta"><span>核验 08:20</span><span class="hot" style="color:var(--accent-2)">受限</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-relay07/400/300" alt="备用中转页跳转记录封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">备用中转</span>
+              <h3 class="card-title">备用中转页 · 仅作跳转</h3>
+              <div class="tag-row"><span class="tag">快速跳转</span><span class="tag">临时</span><span class="tag">07:55 核验</span></div>
+              <p class="card-desc">打开后仅显示跳转按钮，不承载内容，适合已确认主站异常时快速跳到镜像域名，可用时间通常不超过数小时。</p>
+              <div class="card-meta"><span>核验 07:55</span><span class="hot" style="color:var(--ink-3)">临时</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-login09/400/300" alt="登录异常处理路径说明封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">异常处理</span>
+              <h3 class="card-title">登录页反复跳转 · 清理缓存路径</h3>
+              <div class="tag-row"><span class="tag">Cookie</span><span class="tag">缓存</span><span class="tag">排查</span></div>
+              <p class="card-desc">登录后回到登录页，多由旧 Cookie 与新入口不匹配引起，清理站点数据后重新登录通常可恢复，适用于今日多条入口。</p>
+              <div class="card-meta"><span>核验 09:30</span><span class="hot">方法</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-cover"><img src="https://picsum.photos/seed/haijiao-dns11/400/300" alt="DNS 解析检查路径说明封面" width="400" height="300" loading="lazy"></div>
+            <div class="card-body">
+              <span class="type-tag">异常处理</span>
+              <h3 class="card-title">域名解析异常 · 更换 DNS 路径</h3>
+              <div class="tag-row"><span class="tag">DNS</span><span class="tag">解析</span><span class="tag">排查</span></div>
+              <p class="card-desc">入口打不开且提示找不到服务器时，可先切换公共 DNS 再重试；若仍失败，说明该域名当日不可用，应换用其他记录。</p>
+              <div class="card-meta"><span>核验 09:30</span><span class="hot">方法</span></div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- 03 更新动态 -->
+      <section class="section" id="update" aria-labelledby="updateTitle">
+        <div class="section-head">
+          <h2 id="updateTitle"><span class="idx">03</span>今日更新与入口状态变化</h2>
+          <span class="sub">2026-11-08</span>
+        </div>
+        <ul class="update-list">
+          <li><time>今天 09:30</time><span><b>主站线路 A</b> 完成当日核验，登录表单与内容列表加载正常<span class="pill">可用</span></span></li>
+          <li><time>今天 09:12</time><span><b>桌面客户端直连</b> 线路池更新至第 7 版，默认分配节点由 C 改为 B<span class="pill">更新</span></span></li>
+          <li><time>今天 09:05</time><span><b>镜像域名 hjsq-02</b> 三网核验通过，新增移动网络适配说明<span class="pill">可用</span></span></li>
+          <li><time>今天 08:48</time><span><b>镜像域名 hjsq-05</b> 封面图加载偏慢，已标注为文字阅读优先线路<span class="pill">受限</span></span></li>
+          <li><time>今天 08:20</time><span><b>线路 C</b> 在移动网络下首屏等待超过 8 秒，建议改用 hjsq-02<span class="pill">受限</span></span></li>
+          <li><time>今天 07:55</time><span><b>备用中转页</b> 重新上线，仅保留跳转按钮，预计可用数小时<span class="pill">临时</span></span></li>
+          <li><time>昨天 21:10</time><span><b>旧书签入口</b> 确认失效，连接返回超时，已从可用列表移除<span class="pill">失效</span></span></li>
+          <li><time>昨天 18:40</time><span><b>登录页</b> 修复 Cookie 匹配问题，此前反复跳转的用户可重新登录<span class="pill">修复</span></span></li>
+          <li><time>11 月 6 日</time><span><b>镜像域名 hjsq-09</b> 停止解析，官方未说明恢复时间<span class="pill">失效</span></span></li>
+          <li><time>11 月 5 日</time><span><b>客户端</b> 新增线路手动切换入口，位于设置页第二项<span class="pill">更新</span></span></li>
+          <li><time>11 月 3 日</time><span><b>入口记录页</b> 增加核验时间字段，便于判断记录新旧<span class="pill">更新</span></span></li>
+          <li><time>11 月 1 日</time><span><b>镜像域名 hjsq-01</b> 证书更新完成，访问不再出现证书警告<span class="pill">修复</span></span></li>
+        </ul>
+      </section>
+
+      <!-- 04 分类入口 -->
+      <section class="section" id="category" aria-labelledby="catTitle">
+        <div class="section-head">
+          <h2 id="catTitle"><span class="idx">04</span>按类型查找入口与处理方式</h2>
+          <span class="sub">点击筛选</span>
+        </div>
+        <div class="filter-bar" role="group" aria-label="入口类型筛选">
+          <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button class="filter-btn" type="button" data-filter="direct" aria-pressed="false">主站直连</button>
+          <button class="filter-btn" type="button" data-filter="mirror" aria-pressed="false">镜像域名</button>
+          <button class="filter-btn" type="button" data-filter="client" aria-pressed="false">客户端线路</button>
+          <button class="filter-btn" type="button" data-filter="relay" aria-pressed="false">备用中转</button>
+          <button class="filter-btn" type="button" data-filter="fix" aria-pressed="false">异常处理</button>
+        </div>
+        <div class="cat-grid" id="catGrid">
+          <a class="cat-item" href="/#routes" data-cat="direct">主站直连入口<small>线路 A / C</small></a>
+          <a class="cat-item" href="/#routes" data-cat="mirror">镜像域名入口<small>hjsq-02 / 05</small></a>
+          <a class="cat-item" href="/#routes" data-cat="client">客户端线路<small>桌面 / 移动</small></a>
+          <a class="cat-item" href="/#routes" data-cat="relay">备用中转页<small>临时跳转</small></a>
+          <a class="cat-item" href="/#faq" data-cat="fix">登录反复跳转<small>Cookie 排查</small></a>
+          <a class="cat-item" href="/#faq" data-cat="fix">域名解析异常<small>DNS 检查</small></a>
+          <a class="cat-item" href="/#deep" data-cat="fix">证书警告处理<small>HTTPS 检查</small></a>
+          <a class="cat-item" href="/#guide" data-cat="all">多端访问顺序<small>手机 / 桌面</small></a>
+        </div>
+      </section>
+
+      <!-- 05 深度解析 -->
+      <section class="section" id="deep" aria-labelledby="deepTitle">
+        <div class="section-head">
+          <h2 id="deepTitle"><span class="idx">05</span>深度解析：入口类型差异与判断依据</h2>
+          <span class="sub">阅读约 6 分钟</span>
+        </div>
+        <div class="article">
+          <p>同样是“回家”，主站直连、镜像域名、客户端线路和备用中转页的差别不只是地址不同，它们的更新节奏、登录态继承方式和失效速度都不一样。理解这些差异，比收藏一堆地址更实用。</p>
+
+          <h3>主站直连与镜像域名的核心区别</h3>
+          <p>主站直连是社区内容的原始入口，更新最快，新功能通常先在这里上线。镜像域名则与主站共享同一套内容数据，但部署在另一组服务器上，主要作用是在主站解析异常时提供替代路径。两者最大的差别有三点：</p>
+          <ul>
+            <li><strong>更新时差</strong>：主站新功能上线后，镜像域名一般需要数小时到一天同步，个别模块可能延后。</li>
+            <li><strong>登录态</strong>：同一账号在主站与镜像域名之间通常互通，但切换域名后需要重新登录一次，Cookie 不跨域共享。</li>
+            <li><strong>失效速度</strong>：镜像域名更换频率高于主站，收藏后应留意页面底部版本号是否与当日记录一致。</li>
+          </ul>
+          <div class="callout">判断镜像是否仍有效，最简单的办法是看登录页是否完整：如果只出现空白页或跳转到无关页面，说明该域名已被替换。</div>
+
+          <h3>客户端线路为什么更省心</h3>
+          <p>客户端内置线路池，会根据当前网络环境自动选择延迟较低的节点。用户不需要记住具体地址，程序升级时会同步更新线路列表。代价是线路切换的主动权在客户端手里，遇到全部节点不可用时，只能等待下一次线路池更新。对于每天固定访问、又不想手动测试地址的用户，客户端是更稳妥的选择；对于需要临时打开、不想安装程序的场景，镜像域名更直接。</p>
+
+          <h3>备用中转页的适用边界</h3>
+          <p>中转页本身不承载内容，只提供一个跳转按钮。它的价值在于打开速度快、结构简单，适合在主站完全打不开时快速确认“是否还有可用路径”。但中转页更新频繁、存活时间短，不适合作为长期收藏的入口。把它当作临时桥梁，而不是常用地址，是更合理的用法。</p>
+
+          <h3>登录异常的四类常见原因</h3>
+          <p>今日记录中与登录相关的异常主要集中在四类，处理顺序建议从上到下：</p>
+          <ol>
+            <li><strong>旧 Cookie 不匹配</strong>：换了入口域名后仍携带旧站点的登录信息，表现为登录成功却立刻跳回登录页。清理该站点数据后重试即可。</li>
+            <li><strong>DNS 解析到异常节点</strong>：页面提示找不到服务器或加载出无关内容。切换公共 DNS 后重新打开，若仍失败则换用其他入口。</li>
+            <li><strong>证书警告</strong>：地址栏出现不安全提示，多由镜像域名证书未及时更新引起。遇到此类警告应停止输入账号密码。</li>
+            <li><strong>客户端版本过旧</strong>：线路池未更新导致连接旧节点。升级客户端到最新版本后重新分配线路。</li>
+          </ol>
+
+          <h3>怎么判断一条记录值不值得用</h3>
+          <p>三个维度足够：核验时间是否在当天、页面结构是否完整、加载过程是否出现陌生跳转。核验时间越新，记录越可靠；页面结构完整说明该入口仍与主站同步；没有陌生跳转则基本可以排除被劫持的可能。三项都满足再输入账号，是更稳妥的习惯。</p>
+        </div>
+      </section>
+
+      <!-- 06 访问路径指南 -->
+      <section class="section" id="guide" aria-labelledby="guideTitle">
+        <div class="section-head">
+          <h2 id="guideTitle"><span class="idx">06</span>访问路径指南：按设备与场景选择顺序</h2>
+          <span class="sub">操作步骤</span>
+        </div>
+        <ol class="steps">
+          <li>
+            <h3>先确认设备类型</h3>
+            <p>手机端优先尝试镜像域名 hjsq-02，桌面端优先尝试主站线路 A。两者在今日记录中核验时间最早、状态最稳定。</p>
+          </li>
+          <li>
+            <h3>再判断网络环境</h3>
+            <p>移动网络下线路 C 延迟偏高，建议直接跳过；电信与联通网络下主站线路 A 与 hjsq-05 均可正常打开。</p>
+          </li>
+          <li>
+            <h3>检查页面是否完整</h3>
+            <p>登录表单、内容列表、页面底部版本号三项齐全，说明入口与主站同步正常，可以继续登录。</p>
+          </li>
+          <li>
+            <h3>出现异常按类型处理</h3>
+            <p>反复跳转先清 Cookie，提示找不到服务器先换 DNS，出现证书警告立即停止并换用其他记录。</p>
+          </li>
+          <li>
+            <h3>常用入口固定在客户端</h3>
+            <p>如果每天访问，建议安装客户端并保持线路池更新，减少手动测试地址的时间成本。</p>
+          </li>
+        </ol>
+        <div class="compare" style="margin-top:16px">
+          <div class="compare-panel good">
+            <h3>值得保留的入口特征</h3>
+            <ul>
+              <li>核验时间在当天 12 小时内</li>
+              <li>登录页结构完整、版本号一致</li>
+              <li>加载过程无陌生域名跳转</li>
+              <li>证书状态正常，无安全警告</li>
+            </ul>
+          </div>
+          <div class="compare-panel bad">
+            <h3>应当立即放弃的入口特征</h3>
+            <ul>
+              <li>连接超时或长时间白屏</li>
+              <li>登录后立刻跳回登录页</li>
+              <li>地址栏出现证书不安全提示</li>
+              <li>页面被替换为无关内容</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 FAQ -->
+      <section class="section" id="faq" aria-labelledby="faqTitle">
+        <div class="section-head">
+          <h2 id="faqTitle"><span class="idx">07</span>常见问题</h2>
+          <span class="sub">6 个高频疑问</span>
+        </div>
+        <div class="faq">
+          <details open>
+            <summary>海角社区今日回家方式一般多久更新一次？</summary>
+            <div class="answer"><p>入口记录通常每天上午核验一次，遇到线路波动会在当天追加更新。镜像域名的更换频率高于主站，建议以页面标注的核验时间为准，超过 24 小时的记录需要重新确认。</p></div>
+          </details>
+          <details>
+            <summary>主站直连和镜像域名有什么区别，该先用哪个？</summary>
+            <div class="answer"><p>主站直连更新最快、功能上线最早；镜像域名与主站内容同步，但新功能可能延后数小时。桌面端网络稳定时优先主站直连，手机端或主站解析异常时改用镜像域名。</p></div>
+          </details>
+          <details>
+            <summary>登录后一直跳回登录页是什么原因？</summary>
+            <div class="answer"><p>多数情况是旧 Cookie 与新入口域名不匹配。清理该站点的 Cookie 与缓存后重新登录即可；若仍反复跳转，换用另一条今日核验通过的入口再试。</p></div>
+          </details>
+          <details>
+            <summary>移动网络下哪个入口更稳定？</summary>
+            <div class="answer"><p>今日记录中，镜像域名 hjsq-02 在移动网络下核验通过，加载完整；线路 C 首屏等待超过 8 秒，不建议移动网络用户使用。</p></div>
+          </details>
+          <details>
+            <summary>入口打不开提示找不到服务器，应该先做什么？</summary>
+            <div class="answer"><p>先切换公共 DNS 后重新打开。如果仍然失败，说明该域名当日不可用，直接换用其他核验通过的记录，不必反复刷新同一个地址。</p></div>
+          </details>
+          <details>
+            <summary>第一次使用，从哪个入口开始比较合适？</summary>
+            <div class="answer"><p>建议从当日核验时间最新、状态标注为可用的入口开始。桌面端选主站线路 A，手机端选镜像域名 hjsq-02，打开后先确认页面结构完整再登录。</p></div>
+          </details>
+        </div>
+      </section>
+
+      <!-- 08 用户评论 -->
+      <section class="section" id="comments" aria-labelledby="cmTitle">
+        <div class="section-head">
+          <h2 id="cmTitle"><span class="idx">08</span>用户反馈：入口使用体验</h2>
+          <span class="sub">18 条</span>
+        </div>
+        <div class="comment-grid">
+          <div class="comment"><div class="comment-head"><span class="avatar">林</span><span class="comment-name">林间小路</span><time>今天 10:12</time></div><p>早上用 hjsq-02 一次就进去了，登录也正常，比昨天那个旧书签靠谱多了。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">陈</span><span class="comment-name">陈屿</span><time>今天 09:58</time></div><p>线路 C 在移动网络下真的慢，等了十几秒图还没出来，换 hjsq-05 就正常了。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">苏</span><span class="comment-name">苏打水</span><time>今天 09:41</time></div><p>客户端自动切线路这一点挺好，不用自己记地址，升级完就恢复正常了。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">周</span><span class="comment-name">周舟</span><time>今天 09:20</time></div><p>登录反复跳回登录页，清了 Cookie 之后好了，看来确实是缓存的问题。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">何</span><span class="comment-name">何一鸣</span><time>今天 08:52</time></div><p>备用中转页打开很快，但只能跳转，用一次就没了，还是得记两个稳定域名。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">吴</span><span class="comment-name">吴桐</span><time>今天 08:33</time></div><p>hjsq-05 文字能看，封面图要刷新一次才出来，网速一般的时候可以接受。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">郑</span><span class="comment-name">郑小满</span><time>昨天 22:15</time></div><p>旧书签点了直接超时，删掉了，换成今天核验过的记录就正常了。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">黄</span><span class="comment-name">黄栌</span><time>昨天 21:47</time></div><p>提示找不到服务器，换了 DNS 就好了，之前一直以为是站点挂了。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">许</span><span class="comment-name">许清和</span><time>昨天 20:30</time></div><p>镜像域名证书更新之后不再弹出警告了，这点比之前体验好很多。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">马</span><span class="comment-name">马骁</span><time>昨天 19:12</time></div><p>桌面端线路 A 挺稳，白天基本没掉过，晚上高峰偶尔慢一点。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">罗</span><span class="comment-name">罗青</span><time>昨天 17:05</time></div><p>建议把每天核验时间标得更明显一点，有些记录看着新其实已经过期了。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">高</span><span class="comment-name">高远</span><time>11 月 6 日</time></div><p>hjsq-09 停了之后一直没恢复，现在主要用 02 和 05 两条。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">谢</span><span class="comment-name">谢言</span><time>11 月 6 日</time></div><p>客户端升级后多了手动切换线路，出差换网络的时候挺有用。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">钟</span><span class="comment-name">钟晚</span><time>11 月 5 日</time></div><p>中转页有时候能打开有时候不行，不敢当长期入口用，只当临时救急。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">叶</span><span class="comment-name">叶南</span><time>11 月 5 日</time></div><p>手机端还是 hjsq-02 最省事，其他几个要么慢要么图片加载不出来。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">程</span><span class="comment-name">程野</span><time>11 月 3 日</time></div><p>文章里说的三项判断标准挺实用，现在打开先看版本号，对不上直接换。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">孟</span><span class="comment-name">孟舟</span><time>11 月 2 日</time></div><p>联通网络下 hjsq-05 比 02 快一点，可能跟地区有关，大家可以都试一下。</p></div>
+          <div class="comment"><div class="comment-head"><span class="avatar">范</span><span class="comment-name">范青禾</span><time>11 月 1 日</time></div><p>证书警告那次差点输密码，看到提醒才停手，这类提示还是很有必要的。</p></div>
+        </div>
+      </section>
+
+      <!-- 09 相关资讯 -->
+      <section class="section" id="news" aria-labelledby="newsTitle">
+        <div class="section-head">
+          <h2 id="newsTitle"><span class="idx">09</span>入口与访问相关资讯</h2>
+          <span class="sub">近 30 天</span>
+        </div>
+        <ul class="news-list">
+          <li class="news-item">
+            <h3>镜像域名 hjsq-02 完成三网核验，移动网络适配恢复</h3>
+            <p class="meta">2026-11-08 · 入口记录</p>
+            <p>今日 09:05 完成电信、联通、移动三网核验，登录表单与内容列表均完整加载，移动网络下首屏等待时间回落至 3 秒以内。</p>
+          </li>
+          <li class="news-item">
+            <h3>桌面客户端线路池更新至第 7 版，默认节点改为线路 B</h3>
+            <p class="meta">2026-11-08 · 客户端</p>
+            <p>新版本线路池调整了节点排序逻辑，默认分配由线路 C 改为线路 B，设置页新增手动切换入口，旧版本需升级后生效。</p>
+          </li>
+          <li class="news-item">
+            <h3>旧书签入口确认失效，连接统一返回超时</h3>
+            <p class="meta">2026-11-07 · 入口记录</p>
+            <p>长期未更新的旧书签地址于昨晚 21:10 确认失效，继续点击不会跳转到任何页面，建议从今日核验记录中重新收藏。</p>
+          </li>
+          <li class="news-item">
+            <h3>登录页 Cookie 匹配问题修复，反复跳转情况减少</h3>
+            <p class="meta">2026-11-07 · 登录</p>
+            <p>此前切换入口后登录态无法继承的问题已修复，用户在同一浏览器内切换核验通过的域名时，重新登录一次即可正常使用。</p>
+          </li>
+          <li class="news-item">
+            <h3>镜像域名 hjsq-09 停止解析，暂无恢复时间</h3>
+            <p class="meta">2026-11-06 · 入口记录</p>
+            <p>hjsq-09 于 11 月 6 日起停止解析，访问返回找不到服务器。当前可用镜像集中为 hjsq-02 与 hjsq-05 两条。</p>
+          </li>
+          <li class="news-item">
+            <h3>入口记录页增加核验时间字段，便于判断记录新旧</h3>
+            <p class="meta">2026-11-03 · 功能</p>
+            <p>每条入口记录新增核验时间标注，超过 24 小时的记录会以灰色显示，方便优先选择当天确认过的路径。</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- 10 相关推荐 -->
+      <section class="section" id="rec" aria-labelledby="recTitle">
+        <div class="section-head">
+          <h2 id="recTitle"><span class="idx">10</span>延伸方向</h2>
+          <span class="sub">按需求查找</span>
+        </div>
+        <ul class="rec-list">
+          <li><a href="/#deep"><span class="arrow">›</span>镜像域名与主站直连对比</a></li>
+          <li><a href="/#guide"><span class="arrow">›</span>手机端访问顺序</a></li>
+          <li><a href="/#guide"><span class="arrow">›</span>桌面客户端线路切换</a></li>
+          <li><a href="/#faq"><span class="arrow">›</span>登录反复跳转排查</a></li>
+          <li><a href="/#faq"><span class="arrow">›</span>DNS 解析异常处理</a></li>
+          <li><a href="/#deep"><span class="arrow">›</span>证书警告识别方法</a></li>
+          <li><a href="/#update"><span class="arrow">›</span>入口失效判断标准</a></li>
+          <li><a href="/#rank"><span class="arrow">›</span>今日可用入口榜单</a></li>
+        </ul>
+      </section>
+
+      <!-- 11 榜单 -->
+      <section class="section" id="rank" aria-labelledby="rankTitle">
+        <div class="section-head">
+          <h2 id="rankTitle"><span class="idx">11</span>今日入口可用度榜单</h2>
+          <span class="sub">按核验状态与加载完整度</span>
+        </div>
+        <ol class="rank-list">
+          <li><span class="rank-no">1</span><span class="rank-name">主站线路 A<small>桌面端首选，登录与列表完整</small></span><span class="rank-val">09:30 核验</span></li>
+          <li><span class="rank-no">2</span><span class="rank-name">镜像域名 hjsq-02<small>三网可用，移动端优先</small></span><span class="rank-val">09:05 核验</span></li>
+          <li><span class="rank-no">3</span><span class="rank-name">桌面客户端直连<small>自动分配线路 B</small></span><span class="rank-val">09:12 核验</span></li>
+          <li><span class="rank-no">4</span><span class="rank-name">镜像域名 hjsq-05<small>文字阅读优先，图片偏慢</small></span><span class="rank-val">08:48 核验</span></li>
+          <li><span class="rank-no">5</span><span class="rank-name">备用中转页<small>仅作跳转，存活时间短</small></span><span class="rank-val">07:55 核验</span></li>
+          <li><span class="rank-no">6</span><span class="rank-name">线路 C<small>移动网络延迟偏高</small></span><span class="rank-val">08:20 核验</span></li>
+        </ol>
+      </section>
+
+    </div>
+
+    <!-- 右侧辅助栏 -->
+    <aside class="aside-col" aria-label="辅助信息">
+      <div class="panel">
+        <p class="col-title">今日热看</p>
+        <ol class="hot-list">
+          <li><a href="/#routes">主站线路 A 核验记录<span class="m">09:30 · 可用</span></a></li>
+          <li><a href="/#routes">镜像域名 hjsq-02<span class="m">09:05 · 三网可用</span></a></li>
+          <li><a href="/#faq">登录反复跳转处理<span class="m">Cookie 排查</span></a></li>
+          <li><a href="/#routes">桌面客户端线路切换<span class="m">线路池第 7 版</span></a></li>
+          <li><a href="/#deep">证书警告识别方法<span class="m">安全提示</span></a></li>
+          <li><a href="/#update">旧书签失效说明<span class="m">11 月 7 日</span></a></li>
+        </ol>
+      </div>
+      <div class="panel">
+        <p class="col-title">今日时间线</p>
+        <ul class="timeline">
+          <li><span class="t">07:55</span><b>备用中转页</b>重新上线</li>
+          <li><span class="t">08:20</span><b>线路 C</b>移动网络延迟升高</li>
+          <li><span class="t">08:48</span><b>hjsq-05</b>标注为文字优先</li>
+          <li><span class="t">09:05</span><b>hjsq-02</b>三网核验通过</li>
+          <li><span class="t">09:12</span><b>客户端</b>线路池更新</li>
+          <li><span class="t">09:30</span><b>主站线路 A</b>核验完成</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <p class="col-title">核验说明</p>
+        <p class="aside-note">入口状态按当天上午核验结果标注，可用状态可能随网络环境变化，遇到异常可参考常见问题中的排查顺序逐项处理。</p>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#12657a"/>
+            <path d="M12 40c8-14 14-18 20-18s12 4 20 18" stroke="#36c6b0" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <circle cx="32" cy="46" r="5" fill="#f2b544"/>
+          </svg>
+          <span>海角社区今日回家方式</span>
+        </div>
+        <p class="footer-desc">汇总当天可用的入口地址、镜像域名、客户端线路与登录异常处理办法，按核验时间与适配端分类整理。</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <h4>入口类型</h4>
+          <ul>
+            <li><a href="/#routes">主站直连</a></li>
+            <li><a href="/#routes">镜像域名</a></li>
+            <li><a href="/#routes">客户端线路</a></li>
+            <li><a href="/#routes">备用中转</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>问题处理</h4>
+          <ul>
+            <li><a href="/#faq">登录反复跳转</a></li>
+            <li><a href="/#faq">域名解析异常</a></li>
+            <li><a href="/#deep">证书警告识别</a></li>
+            <li><a href="/#guide">访问顺序建议</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>内容栏目</h4>
+          <ul>
+            <li><a href="/#overview">入口概览</a></li>
+            <li><a href="/#update">更新动态</a></li>
+            <li><a href="/#comments">用户反馈</a></li>
+            <li><a href="/#rank">入口榜单</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>部分内容为示例数据，仅用于展示页面结构</span>
+      <span>© 2026 海角社区今日回家方式</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var menuBtn=document.getElementById('menuToggle');
+  var nav=document.getElementById('mainNav');
+  if(menuBtn&&nav){
+    menuBtn.addEventListener('click',function(){
+      var open=nav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    nav.addEventListener('click',function(e){
+      if(e.target.tagName==='A'&&nav.classList.contains('open')){
+        nav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  var filterBtns=document.querySelectorAll('.filter-btn');
+  var catGrid=document.getElementById('catGrid');
+  var catItems=catGrid?catGrid.querySelectorAll('.cat-item'):[];
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      filterBtns.forEach(function(b){b.setAttribute('aria-pressed','false');});
+      btn.setAttribute('aria-pressed','true');
+      var f=btn.getAttribute('data-filter');
+      catItems.forEach(function(item){
+        var c=item.getAttribute('data-cat');
+        var show=(f==='all')||(c===f)||(c==='all');
+        item.style.display=show?'':'none';
+      });
+    });
+  });
+
+  var input=document.getElementById('searchInput');
+  var searchBtn=document.getElementById('searchBtn');
+  function doSearch(){
+    if(!input) return;
+    var q=input.value.trim().toLowerCase();
+    if(!q) return;
+    var sections=document.querySelectorAll('.main-col .section');
+    var found=null;
+    sections.forEach(function(sec){
+      if(!found&&sec.textContent.toLowerCase().indexOf(q)>-1){found=sec;}
+    });
+    if(found){
+      found.scrollIntoView({behavior:'smooth',block:'start'});
+      found.style.transition='background .3s';
+      found.style.outline='2px solid #36c6b0';
+      setTimeout(function(){found.style.outline='none';},1600);
+    }else{
+      alert('未找到与“'+input.value+'”相关的内容，可尝试“镜像”“登录”“DNS”等关键词。');
+    }
+  }
+  if(searchBtn) searchBtn.addEventListener('click',doSearch);
+  if(input) input.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();doSearch();}});
+})();
+</script>
+</body>
+                                                                                                                       </html>
